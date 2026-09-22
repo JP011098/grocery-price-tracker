@@ -6,7 +6,7 @@
 // list or the full catalogue at the lowest current price.
 //
 // SETUP: set these two to your own GitHub username/repo.
-const GITHUB_USER = "YOUR_GITHUB_USERNAME";
+const GITHUB_USER = "JP011098";
 const GITHUB_REPO = "grocery-price-tracker";
 const BRANCH = "main";
 
