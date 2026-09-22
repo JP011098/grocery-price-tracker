@@ -117,11 +117,47 @@ async function triggerWorkflow() {
 
 // ---------- helpers ----------
 
-function cheapestLabel(cheapest) {
+function cheapestLabel(cheapest, unit) {
   if (!cheapest) return "no price yet";
   const brand = cheapest.brand ? `${cheapest.brand} ` : "";
   const stale = cheapest.stale ? " (stale)" : "";
-  return `${brand}$${cheapest.price.toFixed(2)} @ ${STORE_LABELS[cheapest.store] || cheapest.store}${stale}`;
+  const suffix = unit === "kg" ? "/kg" : "";
+  return `${brand}$${cheapest.price.toFixed(2)}${suffix} @ ${STORE_LABELS[cheapest.store] || cheapest.store}${stale}`;
+}
+
+const CATEGORY_ORDER = ["produce", "dairy", "bakery/frozen", "paper goods", "cleaning", "personal care", "other"];
+const CATEGORY_LABELS = {
+  "produce": "🥬 Produce",
+  "dairy": "🥛 Dairy",
+  "bakery/frozen": "🍞 Bakery & Frozen",
+  "paper goods": "🧻 Paper Goods",
+  "cleaning": "🧼 Cleaning",
+  "personal care": "🧴 Personal Care",
+  "other": "📦 Other",
+};
+
+// Groups [id, item] or {p, item} style pairs by item.category, in CATEGORY_ORDER,
+// alphabetical by name within each category. getCategory/getName let this work
+// for either shape of input.
+function groupByCategory(list, getCategory, getName) {
+  const buckets = {};
+  for (const entry of list) {
+    const cat = getCategory(entry) || "other";
+    (buckets[cat] = buckets[cat] || []).push(entry);
+  }
+  const ordered = [];
+  for (const cat of CATEGORY_ORDER) {
+    if (!buckets[cat]) continue;
+    buckets[cat].sort((a, b) => getName(a).localeCompare(getName(b)));
+    ordered.push([cat, buckets[cat]]);
+    delete buckets[cat];
+  }
+  // any leftover/unrecognized categories go last
+  for (const [cat, items] of Object.entries(buckets)) {
+    items.sort((a, b) => getName(a).localeCompare(getName(b)));
+    ordered.push([cat, items]);
+  }
+  return ordered;
 }
 
 function slugify(name) {
@@ -189,28 +225,48 @@ async function buildWidget() {
     return widget;
   }
 
-  const maxRows = 8;
-  entries.slice(0, maxRows).forEach(([id, item]) => {
-    const row = widget.addStack();
-    row.layoutHorizontally();
-    row.centerAlignContent();
+  // Bigger widget families can fit a lot more - iOS decides which family
+  // this instance is via config.widgetFamily.
+  const ROW_BUDGET = { small: 4, medium: 8, large: 16, extraLarge: 22 }[config.widgetFamily] || 10;
 
-    const name = row.addText(item.name);
-    name.font = Font.systemFont(12);
-    name.textColor = Color.white();
-    name.lineLimit = 1;
+  const grouped = groupByCategory(entries, ([, item]) => item.category, ([, item]) => item.name);
+  let rowsLeft = ROW_BUDGET;
+  let shown = 0;
 
-    row.addSpacer();
+  for (const [category, items] of grouped) {
+    if (rowsLeft <= 0) break;
 
-    const trendMark = item.trend === "down" ? "↓ " : item.trend === "up" ? "↑ " : "";
-    const priceText = row.addText(trendMark + cheapestLabel(item.cheapest));
-    priceText.font = Font.systemFont(11);
-    priceText.textColor = item.trend === "down" ? Color.green() : item.cheapest && item.cheapest.stale ? Color.orange() : Color.white();
-    widget.addSpacer(4);
-  });
+    const header = widget.addText(CATEGORY_LABELS[category] || category);
+    header.font = Font.boldSystemFont(11);
+    header.textColor = Color.lightGray();
+    widget.addSpacer(2);
 
-  if (entries.length > maxRows) {
-    const more = widget.addText(`+${entries.length - maxRows} more - open app`);
+    for (const [id, item] of items) {
+      if (rowsLeft <= 0) break;
+      const row = widget.addStack();
+      row.layoutHorizontally();
+      row.centerAlignContent();
+
+      const name = row.addText(item.name);
+      name.font = Font.systemFont(12);
+      name.textColor = Color.white();
+      name.lineLimit = 1;
+
+      row.addSpacer();
+
+      const trendMark = item.trend === "down" ? "↓ " : item.trend === "up" ? "↑ " : "";
+      const priceText = row.addText(trendMark + cheapestLabel(item.cheapest, item.unit));
+      priceText.font = Font.systemFont(11);
+      priceText.textColor = item.trend === "down" ? Color.green() : item.cheapest && item.cheapest.stale ? Color.orange() : Color.white();
+
+      rowsLeft -= 1;
+      shown += 1;
+    }
+    widget.addSpacer(6);
+  }
+
+  if (shown < entries.length) {
+    const more = widget.addText(`+${entries.length - shown} more - open app`);
     more.font = Font.systemFont(9);
     more.textColor = Color.gray();
   }
@@ -227,22 +283,30 @@ async function editMyList(products) {
 
   function buildRows() {
     table.removeAllRows();
-    const header = new UITableRow();
-    header.isHeader = true;
-    header.addText("Tap to add/remove. Swipe down when done.");
-    table.addRow(header);
+    const instructions = new UITableRow();
+    instructions.isHeader = true;
+    instructions.addText("Tap to add/remove. Swipe down when done.");
+    table.addRow(instructions);
 
-    for (const p of products) {
-      const row = new UITableRow();
-      const checked = listSet.has(p.id);
-      row.addText(`${checked ? "✅" : "⬜"} ${p.name}`);
-      row.onSelect = () => {
-        if (listSet.has(p.id)) listSet.delete(p.id);
-        else listSet.add(p.id);
-        buildRows();
-        table.reload();
-      };
-      table.addRow(row);
+    const grouped = groupByCategory(products, (p) => p.category, (p) => p.name);
+    for (const [category, items] of grouped) {
+      const header = new UITableRow();
+      header.isHeader = true;
+      header.addText(CATEGORY_LABELS[category] || category);
+      table.addRow(header);
+
+      for (const p of items) {
+        const row = new UITableRow();
+        const checked = listSet.has(p.id);
+        row.addText(`${checked ? "✅" : "⬜"} ${p.name}`);
+        row.onSelect = () => {
+          if (listSet.has(p.id)) listSet.delete(p.id);
+          else listSet.add(p.id);
+          buildRows();
+          table.reload();
+        };
+        table.addRow(row);
+      }
     }
   }
 
@@ -268,25 +332,91 @@ async function viewCheapest(products, filterToList) {
   const table = new UITable();
   table.showSeparators = true;
 
-  const rows = products
-    .filter((p) => !filterToList || list.has(p.id))
-    .map((p) => ({ p, item: data[p.id] }))
-    .sort((a, b) => a.p.name.localeCompare(b.p.name));
+  const filtered = products.filter((p) => !filterToList || list.has(p.id));
 
-  if (rows.length === 0) {
+  if (filtered.length === 0) {
     const header = new UITableRow();
     header.addText(filterToList ? "Your list is empty." : "No products tracked yet.");
     table.addRow(header);
-  }
+  } else {
+    const grouped = groupByCategory(filtered, (p) => p.category, (p) => p.name);
+    for (const [category, items] of grouped) {
+      const header = new UITableRow();
+      header.isHeader = true;
+      header.addText(CATEGORY_LABELS[category] || category);
+      table.addRow(header);
 
-  for (const { p, item } of rows) {
-    const row = new UITableRow();
-    const trendMark = item && item.trend === "down" ? "↓ " : item && item.trend === "up" ? "↑ " : "";
-    row.addText(p.name, trendMark + cheapestLabel(item && item.cheapest));
-    table.addRow(row);
+      for (const p of items) {
+        const item = data[p.id];
+        const row = new UITableRow();
+        const trendMark = item && item.trend === "down" ? "↓ " : item && item.trend === "up" ? "↑ " : "";
+        row.addText(p.name, trendMark + cheapestLabel(item && item.cheapest, p.unit));
+        table.addRow(row);
+      }
+    }
   }
 
   await table.present();
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// A true auto-scrolling ticker only works inside the app - WidgetKit
+// (the home-screen widget system) only ever renders a static snapshot,
+// it can't run a continuous animation, so this view opens full-screen
+// when you tap this menu item rather than living on the home screen.
+async function showTicker(products) {
+  let data;
+  try {
+    data = await fetchPricesRaw();
+  } catch (e) {
+    const a = new Alert();
+    a.title = "Couldn't load prices";
+    a.message = String(e);
+    a.addAction("OK");
+    await a.presentAlert();
+    return;
+  }
+
+  const list = getShoppingList();
+  const scope = list.size > 0 ? products.filter((p) => list.has(p.id)) : products;
+  const grouped = groupByCategory(scope, (p) => p.category, (p) => p.name);
+
+  let rowsHtml = "";
+  let rowCount = 0;
+  for (const [category, items] of grouped) {
+    rowsHtml += `<div class="cat">${escapeHtml(CATEGORY_LABELS[category] || category)}</div>`;
+    rowCount += 1;
+    for (const p of items) {
+      const item = data[p.id];
+      const label = cheapestLabel(item && item.cheapest, p.unit);
+      const trend = item && item.trend === "down" ? "↓ " : item && item.trend === "up" ? "↑ " : "";
+      rowsHtml += `<div class="row"><span class="name">${escapeHtml(p.name)}</span><span class="price">${trend}${escapeHtml(label)}</span></div>`;
+      rowCount += 1;
+    }
+  }
+
+  const duration = Math.max(rowCount * 1.6, 18);
+
+  const html = `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:-apple-system,sans-serif;}
+  .viewport{height:100vh;position:relative;overflow:hidden;}
+  .track{position:absolute;width:100%;animation:scrollUp ${duration}s linear infinite;}
+  .cat{font-weight:700;color:#999;padding:14px 18px 4px;font-size:13px;letter-spacing:0.5px;}
+  .row{display:flex;justify-content:space-between;padding:10px 18px;font-size:17px;color:#fff;border-bottom:1px solid #222;}
+  .price{color:#4caf50;font-weight:600;}
+  @keyframes scrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+</style></head>
+<body>
+  <div class="viewport"><div class="track">${rowsHtml}${rowsHtml}</div></div>
+</body></html>`;
+
+  const wv = new WebView();
+  await wv.loadHTML(html);
+  await wv.present(true);
 }
 
 async function showScraperHealth() {
@@ -350,13 +480,13 @@ async function checkPriceDrops() {
   for (const item of drops) {
     const n = new Notification();
     n.title = "Price drop 🎉";
-    n.body = `${item.name}: ${cheapestLabel(item.cheapest)}`;
+    n.body = `${item.name}: ${cheapestLabel(item.cheapest, item.unit)}`;
     await n.schedule();
   }
 
   const a = new Alert();
   a.title = `${drops.length} price drop(s)`;
-  a.message = drops.map((d) => `${d.name}: ${cheapestLabel(d.cheapest)}`).join("\n");
+  a.message = drops.map((d) => `${d.name}: ${cheapestLabel(d.cheapest, d.unit)}`).join("\n");
   a.addAction("OK");
   await a.presentAlert();
 }
@@ -503,6 +633,7 @@ async function mainMenu() {
     a.addAction("📝 Edit My List");
     a.addAction("💰 View cheapest - My List");
     a.addAction("🛍️ View cheapest - All Products");
+    a.addAction("🎬 View as scrolling ticker");
     a.addAction(`🔁 Switch widget default (currently: ${mode})`);
     a.addAction("📊 Scraper health");
     a.addAction("🔔 Check price drops now");
@@ -523,21 +654,24 @@ async function mainMenu() {
         await viewCheapest(products, false);
         break;
       case 3:
-        setWidgetMode(mode === "list" ? "all" : "list");
+        await showTicker(products);
         break;
       case 4:
-        await showScraperHealth();
+        setWidgetMode(mode === "list" ? "all" : "list");
         break;
       case 5:
-        await checkPriceDrops();
+        await showScraperHealth();
         break;
       case 6:
-        await addNewProduct();
+        await checkPriceDrops();
         break;
       case 7:
-        await githubSetup();
+        await addNewProduct();
         break;
       case 8:
+        await githubSetup();
+        break;
+      case 9:
         if (!getPAT()) {
           const err = new Alert();
           err.title = "GitHub setup needed";
