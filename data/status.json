@@ -1,1 +1,169 @@
-{}
+{
+  "last_run": "2026-09-22T16:45:50.002425+00:00",
+  "total_attempted": 52,
+  "total_succeeded": 29,
+  "success_rate": 0.558,
+  "by_store": {
+    "walmart": {
+      "attempted": 13,
+      "succeeded": 0,
+      "success_rate": 0.0
+    },
+    "freshco": {
+      "attempted": 10,
+      "succeeded": 0,
+      "success_rate": 0.0
+    },
+    "superstore": {
+      "attempted": 19,
+      "succeeded": 19,
+      "success_rate": 1.0
+    },
+    "costco": {
+      "attempted": 10,
+      "succeeded": 10,
+      "success_rate": 1.0
+    }
+  },
+  "failures": [
+    {
+      "product": "Cilantro",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Cilantro",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Roma Tomatoes",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Roma Tomatoes",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "White Onion",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "White Onion",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Sweet Onions, 3 lb Bag",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Sweet Onions, 3 lb Bag",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Yellow Potatoes 10Lbs",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Yellow Potatoes 10Lbs",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Avocados 5/6 Count",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Avocados 5/6 Count",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Finish Quantum Ultimate+ Dishwasher Detergent, 96 Tablets",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Unsalted Butter",
+      "store": "walmart",
+      "brand": "Gay Lea",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Unsalted Butter",
+      "store": "walmart",
+      "brand": "Great Value",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Unsalted Butter",
+      "store": "freshco",
+      "brand": "Compliments",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Salted Butter",
+      "store": "freshco",
+      "brand": "Compliments",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Salted Butter",
+      "store": "walmart",
+      "brand": "Great Value",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Salted Butter",
+      "store": "walmart",
+      "brand": "Gay Lea",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Mint",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Mint",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Ginger",
+      "store": "walmart",
+      "brand": "",
+      "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Ginger",
+      "store": "freshco",
+      "brand": "",
+      "method": "unhandled_error"
+    }
+  ],
+  "healthy": true
+}
