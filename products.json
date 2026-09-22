@@ -1,447 +1,237 @@
 {
-  "_instructions": "Each product has one or more 'variants' (a specific brand/URL at a specific store). modes: 'compare_cheapest' shows the lowest price across all variants; 'track_drop' flags when the price falls versus the previous scrape. A product can have both. Empty 'variants' means no URL found yet - fill those in (garlic, thai-chili) when you have them.",
+  "_instructions": "Each product has one or more 'variants' (a specific brand/URL at a specific store). modes: 'compare_cheapest' shows the lowest price across all variants; 'track_drop' flags when the price falls versus the previous scrape. 'category' groups products in the app/widget (produce, dairy, bakery/frozen, paper goods, cleaning, personal care, other). 'unit' is 'kg' for loose produce sold by weight (shows as $/kg) or 'each' for everything sold as a fixed item/pack.",
   "products": [
     {
       "id": "cilantro",
       "name": "Cilantro",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/cilantro/981708?classType=REGULAR&athbdg=L1200&from=/search"
-        },
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/cilantro-coriander-1-bunch"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/cilantro/p/20091825001_EA?source=nspt&search-bar=Cilantro&storeId=1542"
-        }
-      ]
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/cilantro/981708?classType=REGULAR&athbdg=L1200&from=/search" },
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/cilantro-coriander-1-bunch" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/cilantro/p/20091825001_EA?source=nspt&search-bar=Cilantro&storeId=1542" }
+      ],
+      "category": "produce",
+      "unit": "each"
     },
     {
       "id": "roma-tomatoes",
       "name": "Roma Tomatoes",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/roma-tomato-(plum-tomato)-2-count"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/roma-tomatoes/p/20143381001_KG?source=nspt&search-bar=Roma+Tomatoes&storeId=1542"
-        },
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/tomato-roma/6000191272055?classType=REGULAR&athbdg=L1200&from=/search"
-        }
-      ]
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/roma-tomato-(plum-tomato)-2-count" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/roma-tomatoes/p/20143381001_KG?source=nspt&search-bar=Roma+Tomatoes&storeId=1542" },
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/tomato-roma/6000191272055?classType=REGULAR&athbdg=L1200&from=/search" }
+      ],
+      "category": "produce",
+      "unit": "kg"
     },
     {
       "id": "white-onion",
       "name": "White Onion",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/onion-white/6000196795032?classType=REGULAR&from=/search"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/white-onion/p/20003839001_KG?source=nspt&search-bar=White+Onion&storeId=1542"
-        },
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/white-onion-1-count"
-        }
-      ]
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/onion-white/6000196795032?classType=REGULAR&from=/search" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/white-onion/p/20003839001_KG?source=nspt&search-bar=White+Onion&storeId=1542" },
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/white-onion-1-count" }
+      ],
+      "category": "produce",
+      "unit": "kg"
     },
     {
       "id": "sweet-onions-3lb",
       "name": "Sweet Onions, 3 lb Bag",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/sweet-onions-3-lb-bag/p/20155979_EA?source=nspt&search-bar=Sweet+Onion&storeId=1542"
-        },
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/onions-sweet-1%252E36-kg"
-        },
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/sweet-onions/6000191272310?athcpid=6000191272310&athpgid=AthenaItempage"
-        }
-      ]
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/sweet-onions-3-lb-bag/p/20155979_EA?source=nspt&search-bar=Sweet+Onion&storeId=1542" },
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/onions-sweet-1%252E36-kg" },
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/sweet-onions/6000191272310?athcpid=6000191272310&athpgid=AthenaItempage" }
+      ],
+      "category": "produce",
+      "unit": "each"
     },
     {
       "id": "yellow-potatoes-10lb",
       "name": "Yellow Potatoes 10Lbs",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/yellow-potatoes-local-(10-lb-bag)-4%252E54-kg"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/yellow-potato-10-lb-bag/p/20601017001_EA?source=nspt&search-bar=Yellow+Potatoes&storeId=1542"
-        },
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/yellow-fleshed-potatoes-454-kg/100544651?langId=-24"
-        },
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/yellow-potatoes-your-fresh-market/0VX1T53WLSHO?classType=REGULAR&from=/search"
-        }
-      ]
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/yellow-potatoes-local-(10-lb-bag)-4%252E54-kg" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/yellow-potato-10-lb-bag/p/20601017001_EA?source=nspt&search-bar=Yellow+Potatoes&storeId=1542" },
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/yellow-fleshed-potatoes-454-kg/100544651?langId=-24" },
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/yellow-potatoes-your-fresh-market/0VX1T53WLSHO?classType=REGULAR&from=/search" }
+      ],
+      "category": "produce",
+      "unit": "each"
     },
     {
       "id": "suraj-yogurt-1-8kg",
       "name": "Suraj Yogurt 1.8kg",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/3-25-dahi-yogurt/p/21718724_EA?source=nspt&search-bar=Suraj+Yogurt&storeId=1542"
-        }
-      ]
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/3-25-dahi-yogurt/p/21718724_EA?source=nspt&search-bar=Suraj+Yogurt&storeId=1542" }
+      ],
+      "category": "dairy",
+      "unit": "each"
     },
     {
       "id": "bounty-paper-towel-12x91",
       "name": "Bounty Plus Paper Towel, 12 x 91 Sheets",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/bounty-plus-paper-towel-12-x-91-sheets/4000339232?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/bounty-plus-paper-towel-12-x-91-sheets/4000339232?langId=-24" }
+      ],
+      "category": "paper goods",
+      "unit": "each"
     },
     {
       "id": "kirkland-bath-tissue-30pk",
       "name": "Kirkland Signature 2-ply Bath Tissue, 30-pack",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/kirkland-signature-2-ply-bath-tissue-30-pack/4000111232?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/kirkland-signature-2-ply-bath-tissue-30-pack/4000111232?langId=-24" }
+      ],
+      "category": "paper goods",
+      "unit": "each"
     },
     {
       "id": "avocados-5-6ct",
       "name": "Avocados 5/6 Count",
-      "modes": [
-        "compare_cheapest",
-        "track_drop"
-      ],
+      "modes": ["compare_cheapest", "track_drop"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/avocado/6000191273459?classType=REGULAR&athbdg=L1600&from=/search"
-        },
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/avocados-6-count/100554203?langId=-24"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/avocado-bag/p/21644936001_EA?source=nspt&search-bar=Avacados&storeId=1542"
-        },
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/hass-avocados-5-count-(ripe-in-3-5-days)"
-        }
-      ]
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/avocado/6000191273459?classType=REGULAR&athbdg=L1600&from=/search" },
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/avocados-6-count/100554203?langId=-24" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/avocado-bag/p/21644936001_EA?source=nspt&search-bar=Avacados&storeId=1542" },
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/hass-avocados-5-count-(ripe-in-3-5-days)" }
+      ],
+      "category": "produce",
+      "unit": "each"
     },
     {
       "id": "shana-plain-paratha",
       "name": "Shana Plain Paratha",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/plain-paratha/p/20990535001_EA?source=nspt&search-bar=Paratha&storeId=1542"
-        }
-      ]
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/plain-paratha/p/20990535001_EA?source=nspt&search-bar=Paratha&storeId=1542" }
+      ],
+      "category": "bakery/frozen",
+      "unit": "each"
     },
     {
       "id": "finish-quantum-96tabs",
       "name": "Finish Quantum Ultimate+ Dishwasher Detergent, 96 Tablets",
-      "modes": [
-        "track_drop",
-        "compare_cheapest"
-      ],
+      "modes": ["track_drop", "compare_cheapest"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/Finish-Quantum-Ultimate-Dishwasher-Detergent-96-Tablets/11XE4X4KNCHW?classType=REGULAR&from=/search"
-        },
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/finish-quantum-ultimate-dishwasher-detergent-96-tablets/4000224829?langId=-24"
-        }
-      ]
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/Finish-Quantum-Ultimate-Dishwasher-Detergent-96-Tablets/11XE4X4KNCHW?classType=REGULAR&from=/search" },
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/finish-quantum-ultimate-dishwasher-detergent-96-tablets/4000224829?langId=-24" }
+      ],
+      "category": "cleaning",
+      "unit": "each"
     },
     {
       "id": "tide-laundry-detergent-4-82l",
       "name": "Tide Laundry Detergent 4.82L",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/tide-ultra-concentrated-liquid-laundry-detergent-original-scent-146-loads/4000254430?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/tide-ultra-concentrated-liquid-laundry-detergent-original-scent-146-loads/4000254430?langId=-24" }
+      ],
+      "category": "cleaning",
+      "unit": "each"
     },
     {
       "id": "dove-daily-moisture-shampoo-1-18l",
       "name": "Dove Daily Moisture Shampoo 1.18 L",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/dove-daily-moisture-shampoo-118-l/4000344866?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/dove-daily-moisture-shampoo-118-l/4000344866?langId=-24" }
+      ],
+      "category": "personal care",
+      "unit": "each"
     },
     {
       "id": "dove-deep-moisture-body-wash-2x1-04l",
       "name": "Dove Deep Moisture Body Wash, 2 x 1.04 L",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/dove-deep-moisture-body-wash-2-x-104-l/4000377963?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/dove-deep-moisture-body-wash-2-x-104-l/4000377963?langId=-24" }
+      ],
+      "category": "personal care",
+      "unit": "each"
     },
     {
       "id": "dove-daily-moisture-conditioner-1-18l",
       "name": "Dove Daily Moisture Conditioner, 1.18 L",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/dove-daily-moisture-conditioner-118-l/4000344903?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/dove-daily-moisture-conditioner-118-l/4000344903?langId=-24" }
+      ],
+      "category": "personal care",
+      "unit": "each"
     },
     {
       "id": "colgate-active-prevention-5x170ml",
       "name": "Colgate Active Prevention Plus Fresh Whitening Toothpaste, 5 X 170 mL",
-      "modes": [
-        "track_drop"
-      ],
+      "modes": ["track_drop"],
       "variants": [
-        {
-          "store": "costco",
-          "brand": "",
-          "url": "https://www.costco.ca/p/-/colgate-active-prevention-plus-fresh-whitening-toothpaste-5-x-170-ml/4000287847?langId=-24"
-        }
-      ]
+        { "store": "costco", "brand": "", "url": "https://www.costco.ca/p/-/colgate-active-prevention-plus-fresh-whitening-toothpaste-5-x-170-ml/4000287847?langId=-24" }
+      ],
+      "category": "personal care",
+      "unit": "each"
     },
     {
       "id": "unsalted-butter",
       "name": "Unsalted Butter",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "Gay Lea",
-          "url": "https://www.walmart.ca/en/ip/Gay-Lea-Unsalted-Butter/6000201029320?classType=REGULAR&athbdg=L1300&from=/search"
-        },
-        {
-          "store": "walmart",
-          "brand": "Great Value",
-          "url": "https://www.walmart.ca/en/ip/Great-Value-Unsalted-Butter/6000200238003?classType=REGULAR&athbdg=L1600&from=/search"
-        },
-        {
-          "store": "superstore",
-          "brand": "Dairyland Creamery",
-          "url": "https://www.realcanadiansuperstore.ca/en/creamery-butter-unsalted/p/21125358_EA?source=nspt&search-bar=Unsalted+Butter+Sticks&storeId=1542"
-        },
-        {
-          "store": "superstore",
-          "brand": "No Name",
-          "url": "https://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20316543002_EA?source=nspt&search-bar=Unsalted+Butter+Sticks&storeId=1542"
-        },
-        {
-          "store": "superstore",
-          "brand": "PC",
-          "url": "https://www.realcanadiansuperstore.ca/en/country-churned-unsalted-butter/p/20313456001_EA?source=nspt"
-        },
-        {
-          "store": "superstore",
-          "brand": "Lactantia Cultured",
-          "url": "https://www.realcanadiansuperstore.ca/en/cultured-unsalted-butter/p/20056675_EA?source=nspt"
-        },
-        {
-          "store": "superstore",
-          "brand": "Gay Lea",
-          "url": "https://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20559466_EA?source=nspt"
-        },
-        {
-          "store": "superstore",
-          "brand": "Melt Organic",
-          "url": "https://www.realcanadiansuperstore.ca/en/organic-buttery-sticks/p/20984009_EA?source=nspt"
-        },
-        {
-          "store": "freshco",
-          "brand": "Compliments",
-          "url": "https://www.freshco.com/products/compliments-butter-stick-unsalted-454-g"
-        }
-      ]
+        { "store": "walmart", "brand": "Gay Lea", "url": "https://www.walmart.ca/en/ip/Gay-Lea-Unsalted-Butter/6000201029320?classType=REGULAR&athbdg=L1300&from=/search" },
+        { "store": "walmart", "brand": "Great Value", "url": "https://www.walmart.ca/en/ip/Great-Value-Unsalted-Butter/6000200238003?classType=REGULAR&athbdg=L1600&from=/search" },
+        { "store": "superstore", "brand": "Dairyland Creamery", "url": "https://www.realcanadiansuperstore.ca/en/creamery-butter-unsalted/p/21125358_EA?source=nspt&search-bar=Unsalted+Butter+Sticks&storeId=1542" },
+        { "store": "superstore", "brand": "No Name", "url": "https://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20316543002_EA?source=nspt&search-bar=Unsalted+Butter+Sticks&storeId=1542" },
+        { "store": "superstore", "brand": "PC", "url": "https://www.realcanadiansuperstore.ca/en/country-churned-unsalted-butter/p/20313456001_EA?source=nspt" },
+        { "store": "superstore", "brand": "Lactantia Cultured", "url": "https://www.realcanadiansuperstore.ca/en/cultured-unsalted-butter/p/20056675_EA?source=nspt" },
+        { "store": "superstore", "brand": "Gay Lea", "url": "https://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20559466_EA?source=nspt" },
+        { "store": "superstore", "brand": "Melt Organic", "url": "https://www.realcanadiansuperstore.ca/en/organic-buttery-sticks/p/20984009_EA?source=nspt" },
+        { "store": "freshco", "brand": "Compliments", "url": "https://www.freshco.com/products/compliments-butter-stick-unsalted-454-g" }
+      ],
+      "category": "dairy",
+      "unit": "each"
     },
     {
       "id": "salted-butter",
       "name": "Salted Butter",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "freshco",
-          "brand": "Compliments",
-          "url": "https://www.freshco.com/products/compliments-butter-stick-salted-454-g"
-        },
-        {
-          "store": "superstore",
-          "brand": "No Name",
-          "url": "https://www.realcanadiansuperstore.ca/en/salted-butter/p/20325029_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542"
-        },
-        {
-          "store": "walmart",
-          "brand": "Great Value",
-          "url": "https://www.walmart.ca/en/ip/Great-Value-Salted-Butter/6000200237828?classType=REGULAR&athbdg=L1600&from=/search"
-        },
-        {
-          "store": "walmart",
-          "brand": "Gay Lea",
-          "url": "https://www.walmart.ca/en/ip/Gay-Lea-Salted-Butter/6000201029323?classType=REGULAR&athbdg=L1300&from=/search"
-        },
-        {
-          "store": "superstore",
-          "brand": "Gay Lea",
-          "url": "https://www.realcanadiansuperstore.ca/en/salted-butter/p/20559408_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542"
-        },
-        {
-          "store": "superstore",
-          "brand": "Dairyland Creamery",
-          "url": "https://www.realcanadiansuperstore.ca/en/creamery-butter-salted/p/21125357_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542"
-        }
-      ]
+        { "store": "freshco", "brand": "Compliments", "url": "https://www.freshco.com/products/compliments-butter-stick-salted-454-g" },
+        { "store": "superstore", "brand": "No Name", "url": "https://www.realcanadiansuperstore.ca/en/salted-butter/p/20325029_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542" },
+        { "store": "walmart", "brand": "Great Value", "url": "https://www.walmart.ca/en/ip/Great-Value-Salted-Butter/6000200237828?classType=REGULAR&athbdg=L1600&from=/search" },
+        { "store": "walmart", "brand": "Gay Lea", "url": "https://www.walmart.ca/en/ip/Gay-Lea-Salted-Butter/6000201029323?classType=REGULAR&athbdg=L1300&from=/search" },
+        { "store": "superstore", "brand": "Gay Lea", "url": "https://www.realcanadiansuperstore.ca/en/salted-butter/p/20559408_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542" },
+        { "store": "superstore", "brand": "Dairyland Creamery", "url": "https://www.realcanadiansuperstore.ca/en/creamery-butter-salted/p/21125357_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542" }
+      ],
+      "category": "dairy",
+      "unit": "each"
     },
     {
       "id": "mint",
       "name": "Mint",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/mint-fresh/6000196088273?classType=REGULAR&athbdg=L1200&from=/search"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/mint-fresh/p/20139326001_EA?source=nspt&search-bar=Mint&storeId=1542"
-        },
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/mint-1-bunch"
-        }
-      ]
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/mint-fresh/6000196088273?classType=REGULAR&athbdg=L1200&from=/search" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/mint-fresh/p/20139326001_EA?source=nspt&search-bar=Mint&storeId=1542" },
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/mint-1-bunch" }
+      ],
+      "category": "produce",
+      "unit": "each"
     },
     {
       "id": "ginger",
       "name": "Ginger",
-      "modes": [
-        "compare_cheapest"
-      ],
+      "modes": ["compare_cheapest"],
       "variants": [
-        {
-          "store": "walmart",
-          "brand": "",
-          "url": "https://www.walmart.ca/en/ip/ginger/6000191271867?classType=REGULAR&athbdg=L1200&from=/search"
-        },
-        {
-          "store": "superstore",
-          "brand": "",
-          "url": "https://www.realcanadiansuperstore.ca/en/ginger/p/20179038001_KG?source=nspt&search-bar=Ginger&storeId=1542"
-        },
-        {
-          "store": "freshco",
-          "brand": "",
-          "url": "https://www.freshco.com/products/ginger-root"
-        }
-      ]
+        { "store": "walmart", "brand": "", "url": "https://www.walmart.ca/en/ip/ginger/6000191271867?classType=REGULAR&athbdg=L1200&from=/search" },
+        { "store": "superstore", "brand": "", "url": "https://www.realcanadiansuperstore.ca/en/ginger/p/20179038001_KG?source=nspt&search-bar=Ginger&storeId=1542" },
+        { "store": "freshco", "brand": "", "url": "https://www.freshco.com/products/ginger-root" }
+      ],
+      "category": "produce",
+      "unit": "kg"
     }
   ]
 }
