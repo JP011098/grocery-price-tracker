@@ -93,6 +93,8 @@ def main():
         entry = {
             "name": product["name"],
             "modes": product.get("modes", []),
+            "category": product.get("category", "other"),
+            "unit": product.get("unit", "each"),
             "variants": {},
         }
 
