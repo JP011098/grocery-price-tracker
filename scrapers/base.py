@@ -229,6 +229,9 @@ def rendered_page(url, wait_ms=5000):
     custom per-store extraction (known CSS selectors, not just generic
     guessing). Yields None if Playwright isn't installed, so callers can
     check for that and degrade gracefully instead of crashing.
+    Uses a realistic browser profile (Canadian locale, normal desktop
+    window size, automation flag hidden) since some sites treat the
+    default headless profile differently from a real visitor.
     """
     try:
         from playwright.sync_api import sync_playwright
@@ -237,14 +240,57 @@ def rendered_page(url, wait_ms=5000):
         return
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(user_agent=HEADERS["User-Agent"])
+        browser = p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
+        context = browser.new_context(
+            user_agent=HEADERS["User-Agent"],
+            locale="en-CA",
+            viewport={"width": 1366, "height": 900},
+        )
+        page = context.new_page()
         try:
             page.goto(url, timeout=30000)
             page.wait_for_timeout(wait_ms)
             yield page
         finally:
             browser.close()
+
+
+def page_diagnostics(page, max_chars=300):
+    """A short description of what the page actually shows (title plus the
+    start of its visible text). Recorded when no price is found, so we can
+    see WHY - a store-selection prompt, a block page, an empty shell, etc."""
+    try:
+        title = page.title()
+    except Exception:
+        title = ""
+    try:
+        body = page.evaluate("() => (document.body && document.body.innerText) || ''")
+    except Exception:
+        body = ""
+    body = " ".join(str(body).split())[:max_chars]
+    return f"title={title!r} body={body!r}"
+
+
+_BLOCK_PAGE_PHRASES = (
+    "robot or human",
+    "verify you are human",
+    "verify you're human",
+    "are you a robot",
+    "press & hold",
+    "press and hold",
+    "access denied",
+    "unusual traffic",
+    "captcha",
+)
+
+
+def looks_like_block_page(diagnostics_text):
+    """True only if the VISIBLE page text (not scripts) reads like a bot-check page."""
+    text = (diagnostics_text or "").lower()
+    return any(phrase in text for phrase in _BLOCK_PAGE_PHRASES)
 
 
 def result(price, currency="CAD", method=None, raw=None):
