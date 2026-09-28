@@ -16,6 +16,12 @@ both cases with one rule.
 For weight-sold items there's ALSO a separate comparison-price-list
 with real per-kg (or per-100g, or per-lb) reference prices - that's
 what kg-tracked products should use instead of the per-item estimate.
+
+The page fills the price in after it loads, so we wait (up to 15s) for
+the price container to actually appear instead of a fixed delay. When
+no price is found, the page title and start of its visible text are
+recorded in the result's "raw" field (and surface in status.json), so
+we can tell a block page from a layout change from a slow load.
 """
 
 from . import base
@@ -73,16 +79,31 @@ def scrape(url, unit="each"):
     except Exception:
         pass  # plain request failed (blocked, timed out, etc) - fall through to a real render
 
-    with base.rendered_page(url) as page:
-        if page is None:
-            return base.result(None, method="playwright_not_installed")
+    try:
+        with base.rendered_page(url) as page:
+            if page is None:
+                return base.result(None, method="playwright_not_installed")
 
-        price, method = _extract(page, unit)
-        if price is not None:
-            return base.result(price, method=method)
+            # Wait for the price to actually show up rather than guessing a
+            # fixed delay. If it never appears we carry on, and the checks
+            # below report what the page really contains.
+            try:
+                page.wait_for_selector(
+                    f"{_MAIN_PRICE_CONTAINER} {_VALUE_IN_CONTAINER}",
+                    state="attached",
+                    timeout=15000,
+                )
+            except Exception:
+                pass
 
-        price = base.extract_price_from_dom_elements(page)
-        if price is not None:
-            return base.result(price, method="rendered_dom_price_element_fallback")
+            price, method = _extract(page, unit)
+            if price is not None:
+                return base.result(price, method=method)
 
-        return base.result(None, method="rendered_no_price_found")
+            price = base.extract_price_from_dom_elements(page)
+            if price is not None:
+                return base.result(price, method="rendered_dom_price_element_fallback")
+
+            return base.result(None, method="rendered_no_price_found", raw=base.page_diagnostics(page))
+    except Exception as exc:  # noqa: BLE001
+        return base.result(None, method="render_failed", raw=str(exc)[:300])
