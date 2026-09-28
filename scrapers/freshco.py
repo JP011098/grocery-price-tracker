@@ -7,6 +7,11 @@ On sale items, FreshCo shows the current price in a span classed
 "...line-through...". We explicitly prefer the "text-red400" price and
 explicitly skip anything "line-through", rather than relying on which
 one happens to appear first in the page.
+
+When no price is found, the page title and start of its visible text
+are recorded in the result's "raw" field (and surface in status.json),
+so we can see what the page actually showed - e.g. a "choose your
+store" prompt instead of the product.
 """
 
 from . import base
@@ -66,16 +71,19 @@ def scrape(url, unit="each"):
     except Exception:
         pass  # plain request failed (blocked, timed out, etc) - fall through to a real render
 
-    with base.rendered_page(url) as page:
-        if page is None:
-            return base.result(None, method="playwright_not_installed")
+    try:
+        with base.rendered_page(url, wait_ms=8000) as page:
+            if page is None:
+                return base.result(None, method="playwright_not_installed")
 
-        price, method = _extract(page, unit)
-        if price is not None:
-            return base.result(price, method=method)
+            price, method = _extract(page, unit)
+            if price is not None:
+                return base.result(price, method=method)
 
-        price = base.extract_price_from_dom_elements(page)
-        if price is not None:
-            return base.result(price, method="rendered_dom_price_element_fallback")
+            price = base.extract_price_from_dom_elements(page)
+            if price is not None:
+                return base.result(price, method="rendered_dom_price_element_fallback")
 
-        return base.result(None, method="rendered_no_price_found")
+            return base.result(None, method="rendered_no_price_found", raw=base.page_diagnostics(page))
+    except Exception as exc:  # noqa: BLE001
+        return base.result(None, method="render_failed", raw=str(exc)[:300])
