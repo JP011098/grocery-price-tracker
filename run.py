@@ -64,12 +64,12 @@ def variant_key(variant):
     return f"{variant['store']}|{variant.get('brand', '')}|{variant['url']}"
 
 
-def scrape_variant(variant):
+def scrape_variant(variant, unit="each"):
     scraper = STORE_SCRAPERS.get(variant["store"])
     if scraper is None:
         return {"price": None, "currency": "CAD", "method": "unknown_store", "fetched_at": None, "raw": None}
     try:
-        return scraper(variant["url"])
+        return scraper(variant["url"], unit)
     except Exception as exc:  # noqa: BLE001
         return {"price": None, "currency": "CAD", "method": "unhandled_error", "fetched_at": None, "raw": str(exc)}
 
@@ -97,7 +97,6 @@ def main():
             "unit": product.get("unit", "each"),
             "variants": {},
         }
-
         if not variants:
             entry["cheapest"] = None
             entry["trend"] = None
@@ -106,8 +105,21 @@ def main():
 
         for variant in variants:
             store = variant["store"]
-            print(f"Scraping {product['name']} [{variant.get('brand') or store}] @ {store} ...")
-            outcome = scrape_variant(variant)
+
+            if variant.get("manual"):
+                # Manually-entered price (e.g. Costco, where the site is
+                # unreliable and/or hides in-store promo pricing) - never
+                # scraped, just carried forward as-is.
+                outcome = {
+                    "price": variant.get("manual_price"),
+                    "currency": "CAD",
+                    "method": "manual_entry",
+                    "fetched_at": variant.get("manual_price_updated") or datetime.now(timezone.utc).isoformat(),
+                    "raw": None,
+                }
+            else:
+                print(f"Scraping {product['name']} [{variant.get('brand') or store}] @ {store} ...")
+                outcome = scrape_variant(variant, entry["unit"])
 
             total_attempted += 1
             store_stats[store]["attempted"] += 1
@@ -143,6 +155,7 @@ def main():
                     "currency": outcome.get("currency", "CAD"),
                     "last_updated": outcome["fetched_at"],
                     "stale": False,
+                    "manual": bool(variant.get("manual")),
                 }
             else:
                 entry["variants"][key] = {
@@ -156,7 +169,8 @@ def main():
                     "last_attempt_method": outcome["method"],
                 }
 
-            time.sleep(DELAY_SECONDS)
+            if not variant.get("manual"):
+                time.sleep(DELAY_SECONDS)
 
         priced = [x for x in entry["variants"].values() if x["price"] is not None]
         if priced:
@@ -168,6 +182,7 @@ def main():
                 "currency": cheapest["currency"],
                 "url": cheapest["url"],
                 "stale": cheapest["stale"],
+                "manual": cheapest.get("manual", False),
             }
         else:
             entry["cheapest"] = None
@@ -187,6 +202,23 @@ def main():
     save_json(PRICES_FILE, current_prices)
     save_json(HISTORY_FILE, history)
 
+    # Safety net: if 3+ different products at the same store landed on the
+    # exact same price this run, that's very likely the scraper matching
+    # something unrelated (a promo banner, a placeholder) rather than real
+    # prices - the same failure mode this file was built to catch. Surface
+    # it in status.json instead of silently trusting it.
+    by_store_price = defaultdict(set)
+    for pid, entry in current_prices.items():
+        for variant in entry.get("variants", {}).values():
+            if variant.get("price") is not None and not variant.get("stale"):
+                by_store_price[(variant["store"], variant["price"])].add(entry["name"])
+
+    duplicate_warnings = [
+        {"store": store, "price": price, "product_count": len(names), "products": sorted(names)}
+        for (store, price), names in by_store_price.items()
+        if len(names) >= 3
+    ]
+
     success_rate = (total_succeeded / total_attempted) if total_attempted else 0
     status = {
         "last_run": datetime.now(timezone.utc).isoformat(),
@@ -202,16 +234,20 @@ def main():
             for store, s in store_stats.items()
         },
         "failures": failures,
-        "healthy": success_rate >= MIN_HEALTHY_SUCCESS_RATE,
+        "duplicate_price_warnings": duplicate_warnings,
+        "healthy": success_rate >= MIN_HEALTHY_SUCCESS_RATE and not duplicate_warnings,
     }
     save_json(STATUS_FILE, status)
 
     print(f"\nDone. {total_succeeded}/{total_attempted} variants scraped successfully "
           f"({success_rate:.0%}). Wrote {PRICES_FILE}, {HISTORY_FILE}, {STATUS_FILE}.")
 
+    if duplicate_warnings:
+        print(f"\n⚠️  {len(duplicate_warnings)} suspicious duplicate-price group(s) found - "
+              "see data/status.json 'duplicate_price_warnings'.")
+
     if not status["healthy"]:
-        print(f"\n⚠️  Success rate below {MIN_HEALTHY_SUCCESS_RATE:.0%} threshold - "
-              "marking this run as unhealthy (data was still saved).")
+        print(f"\n⚠️  Marking this run as unhealthy (data was still saved).")
         return 1
     return 0
 
