@@ -658,7 +658,53 @@ function pageExtractor(STORE, UNIT, completion) {
     return null;
   }
 
-  function freshco() {
+  // FreshCo shows a small line under the price, like "454 G ($1.65 per 100g)"
+  // or "1 EA ($1.99 per EA)". We use it to double-check any price we find:
+  // the price has to agree with the package size and unit price, so a price
+  // that belongs to some OTHER product on the page can't be picked up.
+  function freshcoUnitLine() {
+    const re = /([\d.,]+)\s*(kg|g|ea|l|ml)\s*\(\s*\$(\d+\.\d{2})\s*per\s*(100\s?g|100\s?ml|ea|kg|l)\s*\)/i;
+    for (const el of document.querySelectorAll("p, span, div")) {
+      if (el.children.length > 0) continue;
+      const t = textOf(el);
+      if (t.length > 80) continue;
+      const m = t.match(re);
+      if (m) {
+        return {
+          qty: parseFloat(m[1].replace(/,/g, "")),
+          qtyUnit: m[2].toLowerCase(),
+          unitPrice: parseFloat(m[3]),
+          per: m[4].toLowerCase().replace(/\s/g, ""),
+        };
+      }
+    }
+    return null;
+  }
+
+  function consistent(price, line) {
+    if (!line) return false;
+    let expected = null;
+    if (UNIT === "kg") {
+      if (line.per === "100g") expected = line.unitPrice * 10;
+      else if (line.per === "kg") expected = line.unitPrice;
+    } else if (line.per === "100g" && line.qtyUnit === "g") {
+      expected = (line.qty / 100) * line.unitPrice;
+    } else if (line.per === "100g" && line.qtyUnit === "kg") {
+      expected = line.qty * 10 * line.unitPrice;
+    } else if (line.per === "ea" && line.qtyUnit === "ea") {
+      expected = line.qty * line.unitPrice;
+    } else if (line.per === "100ml" && line.qtyUnit === "ml") {
+      expected = (line.qty / 100) * line.unitPrice;
+    } else if (line.per === "100ml" && line.qtyUnit === "l") {
+      expected = line.qty * 10 * line.unitPrice;
+    }
+    if (expected === null) return false;
+    return Math.abs(price - expected) <= Math.max(0.15, expected * 0.05);
+  }
+
+  // Price-shaped texts on the page, sale (red) prices first, skipping any
+  // crossed-out "was" price.
+  function freshcoPool() {
     const regex = /^\$\d+\.\d{2}(?:\/(?:kg|lb|ea))?$/;
     const sale = [];
     const plain = [];
@@ -670,17 +716,17 @@ function pageExtractor(STORE, UNIT, completion) {
       if (cls.includes("text-red400")) sale.push(text);
       else plain.push(text);
     }
-    const pick = (texts) => {
-      if (UNIT === "kg") {
-        const kg = texts.filter((t) => t.endsWith("/kg"));
-        return kg.length ? kg[0] : null;
-      }
-      const noSlash = texts.filter((t) => !t.includes("/"));
-      if (noSlash.length) return noSlash[0];
-      return texts.length ? texts[0] : null;
-    };
-    const chosen = pick(sale) || pick(plain);
-    return chosen ? money(chosen) : null;
+    return sale.concat(plain).filter((t) => (UNIT === "kg" ? t.endsWith("/kg") : !t.includes("/") || t.endsWith("/ea")));
+  }
+
+  function freshco() {
+    const line = freshcoUnitLine();
+    if (!line) return null;
+    for (const t of freshcoPool()) {
+      const p = money(t);
+      if (p !== null && consistent(p, line)) return p;
+    }
+    return null;
   }
 
   function walmart() {
@@ -697,6 +743,23 @@ function pageExtractor(STORE, UNIT, completion) {
     }
     const h = document.querySelector('[itemprop="price"]');
     return h ? money(textOf(h)) : null;
+  }
+
+  // What we could see when no price was found - shown on the progress screen.
+  function debugText() {
+    try {
+      if (STORE === "freshco") {
+        const line = freshcoUnitLine();
+        const lineText = line ? `${line.qty}${line.qtyUnit} $${line.unitPrice}/${line.per}` : "no unit line";
+        const prices = freshcoPool().slice(0, 3).join(",") || "no prices";
+        return `${lineText}; ${prices}`;
+      }
+      const h = document.querySelector('[itemprop="price"]');
+      const u = document.querySelector('[data-seo-id="hero-unit-price"]');
+      return `hero=${h ? textOf(h).slice(0, 20) : "none"}; unit=${u ? textOf(u).slice(0, 20) : "none"}`;
+    } catch (e) {
+      return "debug failed";
+    }
   }
 
   const started = Date.now();
@@ -723,7 +786,7 @@ function pageExtractor(STORE, UNIT, completion) {
     }
     if (Date.now() - started > 15000) {
       clearInterval(timer);
-      completion({ price: null, note: pageText.slice(0, 100) });
+      completion({ price: null, note: debugText() + " | " + pageText.slice(0, 50) });
     }
   }, 600);
 }
@@ -819,7 +882,8 @@ async function refreshBlockedStoresFromPhone(products) {
         statuses[i] = "blocked - skipped";
         blockedCount += 1;
       } else {
-        statuses[i] = "no price found - skipped";
+        const note = String(res.note || "").slice(0, 90);
+        statuses[i] = note ? `no price found - skipped (${note})` : "no price found - skipped";
         noPriceCount += 1;
       }
       render(`Reading page ${i + 1} of ${targets.length}`);
