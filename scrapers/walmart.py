@@ -1,13 +1,22 @@
 """
 Walmart.ca. Has real bot protection on top of being JS-rendered, so
-this is still the most likely to come back empty - treated as
-best-effort, a Walmart failure never blocks the rest of a run.
+this is the least reliable store - treated as best-effort, a Walmart
+failure never blocks the rest of a run.
 
 Known structure (confirmed Sept 2026): the main price sits in an
 element with itemprop="price" (a clean, semantic hook), and weight-sold
 items ALSO show a per-100g reference price under
-[data-seo-id="hero-unit-price"]. Important: Walmart shows small prices
-in CENTS ("58¢"), not dollars - base.parse_money() handles both.
+[data-seo-id="hero-unit-price"]. Walmart shows small prices in CENTS
+("58c"), not dollars - base.parse_money() handles both, and also copes
+with sale text like "Now $4.97".
+
+An earlier version declared a page "blocked" if the raw HTML contained
+the word "captcha" or "challenge" anywhere - but normal pages mention
+those words in their scripts, so it could give up before even trying
+to read a price. Now we always render and try to read the price first,
+and only call it blocked if the VISIBLE page text looks like a
+bot-check page. On any failure the page title/text is recorded in the
+result's "raw" field so we can see what actually happened.
 """
 
 from . import base
@@ -41,31 +50,21 @@ def _extract(page, unit):
 
 def scrape(url, unit="each"):
     try:
-        html = base.fetch_html(url)
+        with base.rendered_page(url, wait_ms=7000) as page:
+            if page is None:
+                return base.result(None, method="playwright_not_installed")
+
+            price, method = _extract(page, unit)
+            if price is not None:
+                return base.result(price, method=method)
+
+            price = base.extract_price_from_dom_elements(page)
+            if price is not None:
+                return base.result(price, method="rendered_dom_price_element_fallback")
+
+            diagnostics = base.page_diagnostics(page)
+            if base.looks_like_block_page(diagnostics):
+                return base.result(None, method="blocked_by_bot_protection", raw=diagnostics)
+            return base.result(None, method="rendered_no_price_found", raw=diagnostics)
     except Exception as exc:  # noqa: BLE001
-        return base.result(None, method="request_failed", raw=str(exc))
-
-    if "challenge" in html.lower() or "captcha" in html.lower():
-        return base.result(None, method="blocked_by_bot_protection")
-
-    price, method = base.extract_price_static(html)
-    if price is not None:
-        return base.result(price, method=method)
-
-    with base.rendered_page(url, wait_ms=6000) as page:
-        if page is None:
-            return base.result(None, method="playwright_not_installed")
-
-        rendered_html = page.content()
-        if "challenge" in rendered_html.lower() or "captcha" in rendered_html.lower():
-            return base.result(None, method="blocked_by_bot_protection")
-
-        price, method = _extract(page, unit)
-        if price is not None:
-            return base.result(price, method=method)
-
-        price = base.extract_price_from_dom_elements(page)
-        if price is not None:
-            return base.result(price, method="rendered_dom_price_element_fallback")
-
-        return base.result(None, method="rendered_no_price_found")
+        return base.result(None, method="render_failed", raw=str(exc)[:300])
