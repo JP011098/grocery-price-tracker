@@ -594,6 +594,277 @@ async function updatePriceManually(products) {
   }
 }
 
+// ---------- phone-side refresh (FreshCo + Walmart) ----------
+//
+// FreshCo and Walmart block the scraper when it runs on GitHub's servers
+// (FreshCo: "Access Denied", Walmart: "verify you're human"). This reads
+// their pages from THIS phone instead, using Scriptable's built-in web
+// view on your own connection, and saves what it finds as manual prices
+// (which the GitHub scraper then carries forward instead of trying and
+// failing). It only runs while Scriptable is open on screen. If a page
+// shows a verification / access-denied page, that item is skipped - this
+// does not try to get past those checks.
+
+function sleep(ms) {
+  return new Promise((resolve) => Timer.schedule(ms, false, () => resolve()));
+}
+
+function withTimeout(promise, ms, fallback) {
+  return Promise.race([promise, sleep(ms).then(() => fallback)]);
+}
+
+// --- pageExtractor: runs INSIDE the web page (so it can only use page APIs) ---
+function pageExtractor(STORE, UNIT, completion) {
+  const BLOCK_PHRASES = [
+    "verify your identity",
+    "press and hold",
+    "press & hold",
+    "access denied",
+    "robot or human",
+    "are you a robot",
+    "verify you are human",
+  ];
+
+  function textOf(el) {
+    const t = el.innerText !== undefined ? el.innerText : el.textContent;
+    return (t || "").trim();
+  }
+
+  function money(text) {
+    if (!text) return null;
+    let m = text.match(/\$\s?(\d{1,4}(?:\.\d{2})?)/);
+    if (m) return parseFloat(m[1]);
+    m = text.match(/(\d{1,3}(?:\.\d+)?)\s?¢/);
+    if (m) return parseFloat(m[1]) / 100;
+    return null;
+  }
+
+  function freshco() {
+    const regex = /^\$\d+\.\d{2}(?:\/(?:kg|lb|ea))?$/;
+    const sale = [];
+    const plain = [];
+    for (const el of document.querySelectorAll("span, p, div")) {
+      const cls = typeof el.className === "string" ? el.className : "";
+      if (cls.includes("line-through")) continue;
+      const text = textOf(el);
+      if (!regex.test(text)) continue;
+      if (cls.includes("text-red400")) sale.push(text);
+      else plain.push(text);
+    }
+    const pick = (texts) => {
+      if (UNIT === "kg") {
+        const kg = texts.filter((t) => t.endsWith("/kg"));
+        return kg.length ? kg[0] : null;
+      }
+      const noSlash = texts.filter((t) => !t.includes("/"));
+      if (noSlash.length) return noSlash[0];
+      return texts.length ? texts[0] : null;
+    };
+    const chosen = pick(sale) || pick(plain);
+    return chosen ? money(chosen) : null;
+  }
+
+  function walmart() {
+    if (UNIT === "kg") {
+      const u = document.querySelector('[data-seo-id="hero-unit-price"]');
+      if (!u) return null;
+      const text = textOf(u).toLowerCase();
+      const v = money(text);
+      if (v === null) return null;
+      if (text.includes("100g")) return Math.round(v * 10 * 100) / 100;
+      if (text.includes("kg")) return v;
+      if (text.includes("lb")) return Math.round((v / 0.453592) * 100) / 100;
+      return null;
+    }
+    const h = document.querySelector('[itemprop="price"]');
+    return h ? money(textOf(h)) : null;
+  }
+
+  const started = Date.now();
+  const timer = setInterval(() => {
+    let price = null;
+    try {
+      price = STORE === "freshco" ? freshco() : walmart();
+    } catch (e) {
+      price = null;
+    }
+    if (price !== null && !isNaN(price) && price > 0 && price < 1000) {
+      clearInterval(timer);
+      completion({ price: price });
+      return;
+    }
+    const pageText = ((document.title || "") + " " + (document.body ? textOf(document.body) : ""))
+      .replace(/\s+/g, " ")
+      .slice(0, 500)
+      .toLowerCase();
+    if (BLOCK_PHRASES.some((p) => pageText.includes(p))) {
+      clearInterval(timer);
+      completion({ price: null, blocked: true, note: pageText.slice(0, 100) });
+      return;
+    }
+    if (Date.now() - started > 15000) {
+      clearInterval(timer);
+      completion({ price: null, note: pageText.slice(0, 100) });
+    }
+  }, 600);
+}
+// --- end pageExtractor ---
+
+async function readPriceInWebView(url, store, unit) {
+  const wv = new WebView();
+  try {
+    const loaded = await withTimeout(wv.loadURL(url).then(() => true), 30000, false);
+    if (!loaded) return { price: null, note: "page load timed out" };
+  } catch (e) {
+    return { price: null, note: "couldn't load: " + String(e) };
+  }
+
+  const js = `(${pageExtractor.toString()})(${JSON.stringify(store)}, ${JSON.stringify(unit)}, completion);`;
+  try {
+    const res = await withTimeout(wv.evaluateJavaScript(js, true), 25000, { price: null, note: "timed out waiting for a price" });
+    return res || { price: null, note: "no result" };
+  } catch (e) {
+    return { price: null, note: String(e) };
+  }
+}
+
+async function refreshBlockedStoresFromPhone(products) {
+  if (!getPAT()) {
+    const a = new Alert();
+    a.title = "GitHub setup needed";
+    a.message = "Prices are saved to your GitHub repo, so set up your access token first (⚙️ GitHub setup).";
+    a.addAction("OK");
+    await a.presentAlert();
+    return;
+  }
+
+  const targets = [];
+  for (const p of products) {
+    for (const v of p.variants || []) {
+      if ((v.store === "freshco" || v.store === "walmart") && v.url) {
+        targets.push({ productId: p.id, name: p.name, unit: p.unit || "each", store: v.store, brand: v.brand || "", url: v.url });
+      }
+    }
+  }
+  if (targets.length === 0) {
+    const a = new Alert();
+    a.title = "Nothing to refresh";
+    a.message = "No FreshCo or Walmart product URLs found.";
+    a.addAction("OK");
+    await a.presentAlert();
+    return;
+  }
+
+  const confirm = new Alert();
+  confirm.title = "Refresh FreshCo + Walmart from this phone?";
+  confirm.message = `This opens ${targets.length} product pages one at a time in a hidden browser and reads each price. It takes several minutes: keep Scriptable open and your screen on. If a store shows a verification or access-denied page, that item is skipped and left as it was.`;
+  confirm.addAction("Start");
+  confirm.addCancelAction("Cancel");
+  if ((await confirm.present()) === -1) return;
+
+  const statuses = targets.map(() => "waiting");
+  const table = new UITable();
+  table.showSeparators = true;
+
+  function render(headline) {
+    table.removeAllRows();
+    const header = new UITableRow();
+    header.isHeader = true;
+    header.addText(headline);
+    table.addRow(header);
+    targets.forEach((t, i) => {
+      const row = new UITableRow();
+      row.addText(t.name + (t.brand ? ` (${t.brand})` : ""), `${STORE_LABELS[t.store]} - ${statuses[i]}`);
+      table.addRow(row);
+    });
+    table.reload();
+  }
+
+  const found = [];
+  let blockedCount = 0;
+  let noPriceCount = 0;
+
+  render(`Starting - ${targets.length} pages`);
+
+  const work = (async () => {
+    for (let i = 0; i < targets.length; i++) {
+      const t = targets[i];
+      statuses[i] = "loading...";
+      render(`Reading page ${i + 1} of ${targets.length}`);
+
+      const res = await readPriceInWebView(t.url, t.store, t.unit);
+      if (res.price !== null && res.price !== undefined) {
+        statuses[i] = `$${res.price.toFixed(2)}${t.unit === "kg" ? "/kg" : ""}`;
+        found.push({ ...t, price: res.price });
+      } else if (res.blocked) {
+        statuses[i] = "blocked - skipped";
+        blockedCount += 1;
+      } else {
+        statuses[i] = "no price found - skipped";
+        noPriceCount += 1;
+      }
+      render(`Reading page ${i + 1} of ${targets.length}`);
+      await sleep(1500);
+    }
+    render("Done - swipe down to continue");
+  })();
+
+  await table.present();
+  await work;
+
+  if (found.length === 0) {
+    const a = new Alert();
+    a.title = "No prices could be read";
+    a.message = `${blockedCount} page(s) showed a verification/access-denied page, ${noPriceCount} had no readable price. Nothing was changed.`;
+    a.addAction("OK");
+    await a.presentAlert();
+    return;
+  }
+
+  try {
+    const current = await ghApiGet("products.json");
+    const decoded = Data.fromBase64String(current.content.replace(/\n/g, ""));
+    const config = JSON.parse(decoded.toRawString());
+    const now = new Date().toISOString();
+    let saved = 0;
+    for (const f of found) {
+      const prod = config.products.find((p) => p.id === f.productId);
+      if (!prod) continue;
+      const variant = prod.variants.find((v) => v.store === f.store && v.url === f.url);
+      if (!variant) continue;
+      variant.manual = true;
+      variant.manual_price = f.price;
+      variant.manual_price_updated = now;
+      variant.manual_source = "phone";
+      saved += 1;
+    }
+    await ghApiPut("products.json", config, current.sha, `Phone refresh: ${saved} FreshCo/Walmart prices`);
+
+    let triggered = true;
+    try {
+      await triggerWorkflow();
+    } catch (e) {
+      triggered = false;
+    }
+
+    const a = new Alert();
+    a.title = "Prices saved";
+    a.message =
+      `Read ${saved} of ${targets.length} prices.` +
+      (blockedCount + noPriceCount > 0 ? ` Skipped ${blockedCount + noPriceCount} (${blockedCount} blocked, ${noPriceCount} with no readable price).` : "") +
+      (triggered ? " A scrape was started - the widget updates in about 7 minutes." : " Trigger a scrape from the menu to refresh the widget.") +
+      " These prices stay as saved until you refresh again.";
+    a.addAction("OK");
+    await a.presentAlert();
+  } catch (e) {
+    const a = new Alert();
+    a.title = "Read the prices but couldn't save them";
+    a.message = String(e);
+    a.addAction("OK");
+    await a.presentAlert();
+  }
+}
+
 async function addNewProduct() {
   if (!getPAT()) {
     const a = new Alert();
@@ -744,6 +1015,7 @@ async function mainMenu() {
     a.addAction("✏️ Update a price manually");
     a.addAction("⚙️ GitHub setup");
     a.addAction("🔄 Trigger scrape now");
+    a.addAction("📲 Refresh FreshCo + Walmart (phone)");
     a.addCancelAction("Close");
 
     const choice = await a.presentSheet();
@@ -792,6 +1064,9 @@ async function mainMenu() {
           ok.addAction("OK");
           await ok.presentAlert();
         }
+        break;
+      case 11:
+        await refreshBlockedStoresFromPhone(products);
         break;
       default:
         running = false;
