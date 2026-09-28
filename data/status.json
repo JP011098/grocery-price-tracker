@@ -1,8 +1,8 @@
 {
-  "last_run": "2026-09-28T00:21:20.695868+00:00",
+  "last_run": "2026-09-28T00:45:31.355318+00:00",
   "total_attempted": 52,
-  "total_succeeded": 29,
-  "success_rate": 0.558,
+  "total_succeeded": 18,
+  "success_rate": 0.346,
   "by_store": {
     "walmart": {
       "attempted": 13,
@@ -16,13 +16,13 @@
     },
     "superstore": {
       "attempted": 19,
-      "succeeded": 19,
-      "success_rate": 1.0
+      "succeeded": 18,
+      "success_rate": 0.947
     },
     "costco": {
       "attempted": 10,
-      "succeeded": 10,
-      "success_rate": 1.0
+      "succeeded": 0,
+      "success_rate": 0.0
     }
   },
   "failures": [
@@ -82,15 +82,39 @@
     },
     {
       "product": "Yellow Potatoes 10Lbs",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Yellow Potatoes 10Lbs",
       "store": "walmart",
       "brand": "",
       "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Bounty Plus Paper Towel, 12 x 91 Sheets",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Kirkland Signature 2-ply Bath Tissue, 30-pack",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
     },
     {
       "product": "Avocados 5/6 Count",
       "store": "walmart",
       "brand": "",
       "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Avocados 5/6 Count",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
     },
     {
       "product": "Avocados 5/6 Count",
@@ -99,10 +123,52 @@
       "method": "unhandled_error"
     },
     {
+      "product": "Shana Plain Paratha",
+      "store": "superstore",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
       "product": "Finish Quantum Ultimate+ Dishwasher Detergent, 96 Tablets",
       "store": "walmart",
       "brand": "",
       "method": "blocked_by_bot_protection"
+    },
+    {
+      "product": "Finish Quantum Ultimate+ Dishwasher Detergent, 96 Tablets",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Tide Laundry Detergent 4.82L",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Dove Daily Moisture Shampoo 1.18 L",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Dove Deep Moisture Body Wash, 2 x 1.04 L",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Dove Daily Moisture Conditioner, 1.18 L",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
+    },
+    {
+      "product": "Colgate Active Prevention Plus Fresh Whitening Toothpaste, 5 X 170 mL",
+      "store": "costco",
+      "brand": "",
+      "method": "unhandled_error"
     },
     {
       "product": "Unsalted Butter",
@@ -165,5 +231,6 @@
       "method": "unhandled_error"
     }
   ],
-  "healthy": true
+  "duplicate_price_warnings": [],
+  "healthy": false
 }
