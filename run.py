@@ -157,6 +157,7 @@ def main():
                     "last_updated": outcome["fetched_at"],
                     "stale": False,
                     "manual": bool(variant.get("manual")),
+                    "manual_source": variant.get("manual_source", ""),
                 }
             else:
                 entry["variants"][key] = {
@@ -184,6 +185,8 @@ def main():
                 "url": cheapest["url"],
                 "stale": cheapest["stale"],
                 "manual": cheapest.get("manual", False),
+                "manual_source": cheapest.get("manual_source", ""),
+                "last_updated": cheapest.get("last_updated"),
             }
         else:
             entry["cheapest"] = None
