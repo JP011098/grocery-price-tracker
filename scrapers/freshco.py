@@ -58,10 +58,13 @@ def _extract(page, unit):
 
 
 def scrape(url, unit="each"):
-    html = base.fetch_html(url)
-    price, method = base.extract_price_static(html)
-    if price is not None:
-        return base.result(price, method=method)
+    try:
+        html = base.fetch_html(url)
+        price, method = base.extract_price_static(html)
+        if price is not None:
+            return base.result(price, method=method)
+    except Exception:
+        pass  # plain request failed (blocked, timed out, etc) - fall through to a real render
 
     with base.rendered_page(url) as page:
         if page is None:
