@@ -117,11 +117,30 @@ async function triggerWorkflow() {
 
 // ---------- helpers ----------
 
-function cheapestLabel(cheapest, unit) {
+// How old a saved price is, e.g. "<1h", "5h", "3d". Only used for prices
+// that were entered by hand or read from the phone - scraped prices
+// refresh twice a day on their own.
+function ageText(isoString) {
+  const hrs = hoursSince(isoString);
+  if (hrs === null || isNaN(hrs)) return "";
+  if (hrs < 1) return "<1h";
+  if (hrs < 48) return `${Math.round(hrs)}h`;
+  return `${Math.floor(hrs / 24)}d`;
+}
+
+// compact=true is used on the home-screen widget, where space is tight:
+// "(phone 3d)" instead of "(phone, 3d old)".
+function cheapestLabel(cheapest, unit, compact) {
   if (!cheapest) return "no price yet";
   const brand = cheapest.brand ? `${cheapest.brand} ` : "";
   const stale = cheapest.stale ? " (stale)" : "";
-  const manual = cheapest.manual ? " (manual)" : "";
+  let manual = "";
+  if (cheapest.manual) {
+    const source = cheapest.manual_source === "phone" ? "phone" : "manual";
+    const age = ageText(cheapest.last_updated);
+    if (!age) manual = ` (${source})`;
+    else manual = compact ? ` (${source} ${age})` : ` (${source}, ${age} old)`;
+  }
   const suffix = unit === "kg" ? "/kg" : "";
   return `${brand}$${cheapest.price.toFixed(2)}${suffix} @ ${STORE_LABELS[cheapest.store] || cheapest.store}${stale}${manual}`;
 }
@@ -256,7 +275,7 @@ async function buildWidget() {
       row.addSpacer();
 
       const trendMark = item.trend === "down" ? "↓ " : item.trend === "up" ? "↑ " : "";
-      const priceText = row.addText(trendMark + cheapestLabel(item.cheapest, item.unit));
+      const priceText = row.addText(trendMark + cheapestLabel(item.cheapest, item.unit, true));
       priceText.font = Font.systemFont(11);
       priceText.textColor = item.trend === "down" ? Color.green() : item.cheapest && item.cheapest.stale ? Color.orange() : Color.white();
 
