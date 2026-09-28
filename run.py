@@ -132,6 +132,7 @@ def main():
                     "store": store,
                     "brand": variant.get("brand", ""),
                     "method": outcome["method"],
+                    "detail": (outcome.get("raw") or "")[:300],
                 })
 
             history.append({
