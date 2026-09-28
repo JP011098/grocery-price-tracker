@@ -121,8 +121,9 @@ function cheapestLabel(cheapest, unit) {
   if (!cheapest) return "no price yet";
   const brand = cheapest.brand ? `${cheapest.brand} ` : "";
   const stale = cheapest.stale ? " (stale)" : "";
+  const manual = cheapest.manual ? " (manual)" : "";
   const suffix = unit === "kg" ? "/kg" : "";
-  return `${brand}$${cheapest.price.toFixed(2)}${suffix} @ ${STORE_LABELS[cheapest.store] || cheapest.store}${stale}`;
+  return `${brand}$${cheapest.price.toFixed(2)}${suffix} @ ${STORE_LABELS[cheapest.store] || cheapest.store}${stale}${manual}`;
 }
 
 const CATEGORY_ORDER = ["produce", "dairy", "bakery/frozen", "paper goods", "cleaning", "personal care", "other"];
@@ -452,6 +453,13 @@ async function showScraperHealth() {
       lines.push(`  ${f.product} @ ${STORE_LABELS[f.store] || f.store} - ${f.method}`);
     });
   }
+  if (status.duplicate_price_warnings && status.duplicate_price_warnings.length) {
+    lines.push("");
+    lines.push(`⚠️ ${status.duplicate_price_warnings.length} suspicious duplicate-price group(s):`);
+    status.duplicate_price_warnings.slice(0, 3).forEach((w) => {
+      lines.push(`  ${STORE_LABELS[w.store] || w.store} $${w.price.toFixed(2)} on ${w.product_count} products - likely a scraper bug, not real prices`);
+    });
+  }
 
   const a = new Alert();
   a.title = "📊 Scraper Health";
@@ -489,6 +497,101 @@ async function checkPriceDrops() {
   a.message = drops.map((d) => `${d.name}: ${cheapestLabel(d.cheapest, d.unit)}`).join("\n");
   a.addAction("OK");
   await a.presentAlert();
+}
+
+async function updatePriceManually(products) {
+  if (!getPAT()) {
+    const a = new Alert();
+    a.title = "GitHub setup needed";
+    a.message = "Set up your GitHub access token first (see menu option below).";
+    a.addAction("OK");
+    await a.presentAlert();
+    return;
+  }
+
+  // Pick a product
+  const picker = new Alert();
+  picker.title = "Which product?";
+  const sorted = [...products].sort((a, b) => a.name.localeCompare(b.name));
+  sorted.forEach((p) => picker.addAction(p.name));
+  picker.addCancelAction("Cancel");
+  const productChoice = await picker.presentSheet();
+  if (productChoice === -1) return;
+  const product = sorted[productChoice];
+
+  // Pick which store/brand variant on that product (or add a new manual-only one)
+  const variantPicker = new Alert();
+  variantPicker.title = `Which variant of "${product.name}"?`;
+  product.variants.forEach((v) => {
+    const label = v.brand ? `${v.brand} @ ${STORE_LABELS[v.store] || v.store}` : STORE_LABELS[v.store] || v.store;
+    variantPicker.addAction(label + (v.manual ? " (manual)" : ""));
+  });
+  variantPicker.addAction("+ Add a new manual-only variant");
+  variantPicker.addCancelAction("Cancel");
+  const variantChoice = await variantPicker.presentSheet();
+  if (variantChoice === -1) return;
+
+  const priceAlert = new Alert();
+  priceAlert.title = "Current price";
+  priceAlert.addTextField("e.g. 12.99");
+  priceAlert.addAction("Save");
+  priceAlert.addCancelAction("Cancel");
+  if ((await priceAlert.present()) === -1) return;
+  const priceValue = parseFloat(priceAlert.textFieldValue(0).trim());
+  if (isNaN(priceValue)) {
+    const err = new Alert();
+    err.title = "Not a valid price";
+    err.addAction("OK");
+    await err.presentAlert();
+    return;
+  }
+
+  try {
+    const current = await ghApiGet("products.json");
+    const decoded = Data.fromBase64String(current.content.replace(/\n/g, ""));
+    const config = JSON.parse(decoded.toRawString());
+    const targetProduct = config.products.find((p) => p.id === product.id);
+    const now = new Date().toISOString();
+
+    if (variantChoice < product.variants.length) {
+      const targetVariant = targetProduct.variants[variantChoice];
+      targetVariant.manual = true;
+      targetVariant.manual_price = priceValue;
+      targetVariant.manual_price_updated = now;
+    } else {
+      const storeAlert = new Alert();
+      storeAlert.title = "Which store is this price from?";
+      storeAlert.addAction("Costco");
+      storeAlert.addAction("Superstore");
+      storeAlert.addAction("FreshCo");
+      storeAlert.addAction("Walmart");
+      storeAlert.addAction("Other");
+      const storeChoice = await storeAlert.presentSheet();
+      const store = ["costco", "superstore", "freshco", "walmart", "other"][storeChoice] || "other";
+      targetProduct.variants.push({
+        store,
+        brand: "",
+        url: "",
+        manual: true,
+        manual_price: priceValue,
+        manual_price_updated: now,
+      });
+    }
+
+    await ghApiPut("products.json", config, current.sha, `Manual price update: ${product.name}`);
+
+    const a = new Alert();
+    a.title = "Saved";
+    a.message = "This price will carry forward until you update it again - it won't be scraped. Trigger a scrape now to refresh prices.json right away, or wait for the next scheduled run.";
+    a.addAction("OK");
+    await a.presentAlert();
+  } catch (e) {
+    const a = new Alert();
+    a.title = "Couldn't save to GitHub";
+    a.message = String(e);
+    a.addAction("OK");
+    await a.presentAlert();
+  }
 }
 
 async function addNewProduct() {
@@ -638,6 +741,7 @@ async function mainMenu() {
     a.addAction("📊 Scraper health");
     a.addAction("🔔 Check price drops now");
     a.addAction("➕ Add new product");
+    a.addAction("✏️ Update a price manually");
     a.addAction("⚙️ GitHub setup");
     a.addAction("🔄 Trigger scrape now");
     a.addCancelAction("Close");
@@ -669,9 +773,12 @@ async function mainMenu() {
         await addNewProduct();
         break;
       case 8:
-        await githubSetup();
+        await updatePriceManually(products);
         break;
       case 9:
+        await githubSetup();
+        break;
+      case 10:
         if (!getPAT()) {
           const err = new Alert();
           err.title = "GitHub setup needed";
