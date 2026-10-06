@@ -1,8 +1,8 @@
 {
-  "last_run": "2026-10-05T21:13:54.154656+00:00",
+  "last_run": "2026-10-06T02:10:45.251754+00:00",
   "total_attempted": 52,
-  "total_succeeded": 8,
-  "success_rate": 0.154,
+  "total_succeeded": 27,
+  "success_rate": 0.519,
   "by_store": {
     "walmart": {
       "attempted": 13,
@@ -16,8 +16,8 @@
     },
     "superstore": {
       "attempted": 19,
-      "succeeded": 0,
-      "success_rate": 0.0
+      "succeeded": 19,
+      "success_rate": 1.0
     },
     "costco": {
       "attempted": 10,
@@ -38,28 +38,14 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/cilantro-coriander-1-bunch\" on this server. Reference #18.ec263e17.1791234130.3602bf3f https://errors.edgesuite.net/18.ec263e17.1791234130.3602bf3f'"
-    },
-    {
-      "product": "Cilantro",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/cilantro/p/20091825001_EA?\" on this server. Reference #18.e5623017.1791234141.52121692 https://errors.edgesuite.net/18.e5623017.1791234141.52121692'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/cilantro-coriander-1-bunch\" on this server. Reference #18.f0263e17.1791252153.66a3781d https://errors.edgesuite.net/18.f0263e17.1791252153.66a3781d'"
     },
     {
       "product": "Roma Tomatoes",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/roma-tomato-(plum-tomato)-2-count\" on this server. Reference #18.92623017.1791234164.dd5a21e https://errors.edgesuite.net/18.92623017.1791234164.dd5a21e'"
-    },
-    {
-      "product": "Roma Tomatoes",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/roma-tomatoes/p/20143381001_KG?\" on this server. Reference #18.e5623017.1791234175.52174a51 https://errors.edgesuite.net/18.e5623017.1791234175.52174a51'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/roma-tomato-(plum-tomato)-2-count\" on this server. Reference #18.ec263e17.1791252174.39130112 https://errors.edgesuite.net/18.ec263e17.1791252174.39130112'"
     },
     {
       "product": "Roma Tomatoes",
@@ -77,31 +63,17 @@
     },
     {
       "product": "White Onion",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/white-onion/p/20003839001_KG?\" on this server. Reference #18.e5623017.1791234218.521dbe24 https://errors.edgesuite.net/18.e5623017.1791234218.521dbe24'"
-    },
-    {
-      "product": "White Onion",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/white-onion-1-count\" on this server. Reference #18.92623017.1791234241.dd6e373 https://errors.edgesuite.net/18.92623017.1791234241.dd6e373'"
-    },
-    {
-      "product": "Sweet Onions, 3 lb Bag",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/sweet-onions-3-lb-bag/p/20155979_EA?\" on this server. Reference #18.e5623017.1791234252.5222d1a5 https://errors.edgesuite.net/18.e5623017.1791234252.5222d1a5'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/white-onion-1-count\" on this server. Reference #18.f0263e17.1791252225.66a79a97 https://errors.edgesuite.net/18.f0263e17.1791252225.66a79a97'"
     },
     {
       "product": "Sweet Onions, 3 lb Bag",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/onions-sweet-1%252E36-kg\" on this server. Reference #18.96623017.1791234274.2b5a61 https://errors.edgesuite.net/18.96623017.1791234274.2b5a61'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/onions-sweet-1%252E36-kg\" on this server. Reference #18.f0263e17.1791252245.66a8ff30 https://errors.edgesuite.net/18.f0263e17.1791252245.66a8ff30'"
     },
     {
       "product": "Sweet Onions, 3 lb Bag",
@@ -115,14 +87,7 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/yellow-potatoes-local-(10-lb-bag)-4%252E54-kg\" on this server. Reference #18.d3263e17.1791234295.946f102c https://errors.edgesuite.net/18.d3263e17.1791234295.946f102c'"
-    },
-    {
-      "product": "Yellow Potatoes 10Lbs",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/yellow-potato-10-lb-bag/p/20601017001_EA?\" on this server. Reference #18.e5623017.1791234306.522b0c19 https://errors.edgesuite.net/18.e5623017.1791234306.522b0c19'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/yellow-potatoes-local-(10-lb-bag)-4%252E54-kg\" on this server. Reference #18.f0263e17.1791252267.66aa50bd https://errors.edgesuite.net/18.f0263e17.1791252267.66aa50bd'"
     },
     {
       "product": "Yellow Potatoes 10Lbs",
@@ -137,13 +102,6 @@
       "brand": "",
       "method": "blocked_by_bot_protection",
       "detail": "title='Verify Your Identity' body='We like real shoppers, not robots! Please press and hold the button below to verify yourself so we can keep spam bots off of Walmart.ca.'"
-    },
-    {
-      "product": "Suraj Yogurt 1.8kg",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/3-25-dahi-yogurt/p/21718724_EA?\" on this server. Reference #18.e5623017.1791234351.52322f66 https://errors.edgesuite.net/18.e5623017.1791234351.52322f66'"
     },
     {
       "product": "Avocados 5/6 Count",
@@ -161,24 +119,10 @@
     },
     {
       "product": "Avocados 5/6 Count",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/avocado-bag/p/21644936001_EA?\" on this server. Reference #18.e5623017.1791234398.523aeb30 https://errors.edgesuite.net/18.e5623017.1791234398.523aeb30'"
-    },
-    {
-      "product": "Avocados 5/6 Count",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/hass-avocados-5-count-(ripe-in-3-5-days)\" on this server. Reference #18.ed263e17.1791234421.66d8e766 https://errors.edgesuite.net/18.ed263e17.1791234421.66d8e766'"
-    },
-    {
-      "product": "Shana Plain Paratha",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/plain-paratha/p/20990535001_EA?\" on this server. Reference #18.e5623017.1791234432.52410ef4 https://errors.edgesuite.net/18.e5623017.1791234432.52410ef4'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/hass-avocados-5-count-(ripe-in-3-5-days)\" on this server. Reference #18.f0263e17.1791252355.66af8d03 https://errors.edgesuite.net/18.f0263e17.1791252355.66af8d03'"
     },
     {
       "product": "Finish Quantum Ultimate+ Dishwasher Detergent, 96 Tablets",
@@ -203,66 +147,17 @@
     },
     {
       "product": "Unsalted Butter",
-      "store": "superstore",
-      "brand": "Dairyland Creamery",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/creamery-butter-unsalted/p/21125358_EA?\" on this server. Reference #18.e5623017.1791234499.524d0da4 https://errors.edgesuite.net/18.e5623017.1791234499.524d0da4'"
-    },
-    {
-      "product": "Unsalted Butter",
-      "store": "superstore",
-      "brand": "No Name",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20316543002_EA?\" on this server. Reference #18.e818d017.1791234522.787df0ca https://errors.edgesuite.net/18.e818d017.1791234522.787df0ca'"
-    },
-    {
-      "product": "Unsalted Butter",
-      "store": "superstore",
-      "brand": "PC",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/country-churned-unsalted-butter/p/20313456001_EA?\" on this server. Reference #18.e5623017.1791234545.5254c6f5 https://errors.edgesuite.net/18.e5623017.1791234545.5254c6f5'"
-    },
-    {
-      "product": "Unsalted Butter",
-      "store": "superstore",
-      "brand": "Lactantia Cultured",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/cultured-unsalted-butter/p/20056675_EA?\" on this server. Reference #18.e5623017.1791234567.52588c58 https://errors.edgesuite.net/18.e5623017.1791234567.52588c58'"
-    },
-    {
-      "product": "Unsalted Butter",
-      "store": "superstore",
-      "brand": "Gay Lea",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20559466_EA?\" on this server. Reference #18.e5623017.1791234590.525c3b1f https://errors.edgesuite.net/18.e5623017.1791234590.525c3b1f'"
-    },
-    {
-      "product": "Unsalted Butter",
-      "store": "superstore",
-      "brand": "Melt Organic",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/organic-buttery-sticks/p/20984009_EA?\" on this server. Reference #18.eb18d017.1791234613.58f7768f https://errors.edgesuite.net/18.eb18d017.1791234613.58f7768f'"
-    },
-    {
-      "product": "Unsalted Butter",
       "store": "freshco",
       "brand": "Compliments",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-unsalted-454-g\" on this server. Reference #18.ed263e17.1791234635.66f168ee https://errors.edgesuite.net/18.ed263e17.1791234635.66f168ee'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-unsalted-454-g\" on this server. Reference #18.ec263e17.1791252495.39257a4b https://errors.edgesuite.net/18.ec263e17.1791252495.39257a4b'"
     },
     {
       "product": "Salted Butter",
       "store": "freshco",
       "brand": "Compliments",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-salted-454-g\" on this server. Reference #18.ed263e17.1791234646.66f25f04 https://errors.edgesuite.net/18.ed263e17.1791234646.66f25f04'"
-    },
-    {
-      "product": "Salted Butter",
-      "store": "superstore",
-      "brand": "No Name",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/salted-butter/p/20325029_EA?\" on this server. Reference #18.e5623017.1791234657.5268e229 https://errors.edgesuite.net/18.e5623017.1791234657.5268e229'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-salted-454-g\" on this server. Reference #18.f0263e17.1791252506.66bb4134 https://errors.edgesuite.net/18.f0263e17.1791252506.66bb4134'"
     },
     {
       "product": "Salted Butter",
@@ -279,20 +174,6 @@
       "detail": "title='Verify Your Identity' body='We like real shoppers, not robots! Please press and hold the button below to verify yourself so we can keep spam bots off of Walmart.ca.'"
     },
     {
-      "product": "Salted Butter",
-      "store": "superstore",
-      "brand": "Gay Lea",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/salted-butter/p/20559408_EA?\" on this server. Reference #18.e5623017.1791234701.527281ea https://errors.edgesuite.net/18.e5623017.1791234701.527281ea'"
-    },
-    {
-      "product": "Salted Butter",
-      "store": "superstore",
-      "brand": "Dairyland Creamery",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/creamery-butter-salted/p/21125357_EA?\" on this server. Reference #18.e5623017.1791234724.5276bddb https://errors.edgesuite.net/18.e5623017.1791234724.5276bddb'"
-    },
-    {
       "product": "Mint",
       "store": "walmart",
       "brand": "",
@@ -301,17 +182,10 @@
     },
     {
       "product": "Mint",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/mint-fresh/p/20139326001_EA?\" on this server. Reference #18.e5623017.1791234757.527c91f3 https://errors.edgesuite.net/18.e5623017.1791234757.527c91f3'"
-    },
-    {
-      "product": "Mint",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/mint-1-bunch\" on this server. Reference #18.d3263e17.1791234779.949398ab https://errors.edgesuite.net/18.d3263e17.1791234779.949398ab'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/mint-1-bunch\" on this server. Reference #18.f0263e17.1791252604.66c1fbac https://errors.edgesuite.net/18.f0263e17.1791252604.66c1fbac'"
     },
     {
       "product": "Ginger",
@@ -322,19 +196,12 @@
     },
     {
       "product": "Ginger",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.realcanadiansuperstore.ca/en/ginger/p/20179038001_KG?\" on this server. Reference #18.e5623017.1791234801.52833db2 https://errors.edgesuite.net/18.e5623017.1791234801.52833db2'"
-    },
-    {
-      "product": "Ginger",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/ginger-root\" on this server. Reference #18.ec263e17.1791234824.363a3b0b https://errors.edgesuite.net/18.ec263e17.1791234824.363a3b0b'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/ginger-root\" on this server. Reference #18.f0263e17.1791252635.66c3e231 https://errors.edgesuite.net/18.f0263e17.1791252635.66c3e231'"
     }
   ],
   "duplicate_price_warnings": [],
-  "healthy": false
+  "healthy": true
 }
