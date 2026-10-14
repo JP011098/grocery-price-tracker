@@ -1,13 +1,13 @@
 {
-  "last_run": "2026-10-14T00:59:20.003616+00:00",
+  "last_run": "2026-10-14T17:54:53.631209+00:00",
   "total_attempted": 52,
   "total_succeeded": 27,
   "success_rate": 0.519,
   "by_store": {
     "walmart": {
       "attempted": 13,
-      "succeeded": 1,
-      "success_rate": 0.077
+      "succeeded": 0,
+      "success_rate": 0.0
     },
     "freshco": {
       "attempted": 10,
@@ -16,8 +16,8 @@
     },
     "superstore": {
       "attempted": 19,
-      "succeeded": 18,
-      "success_rate": 0.947
+      "succeeded": 19,
+      "success_rate": 1.0
     },
     "costco": {
       "attempted": 10,
@@ -38,14 +38,14 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/cilantro-coriander-1-bunch\" on this server. Reference #18.96623017.1791939025.6734927 https://errors.edgesuite.net/18.96623017.1791939025.6734927'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/cilantro-coriander-1-bunch\" on this server. Reference #18.b4f50f17.1791999984.17ee50aa https://errors.edgesuite.net/18.b4f50f17.1791999984.17ee50aa'"
     },
     {
       "product": "Roma Tomatoes",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/roma-tomato-(plum-tomato)-2-count\" on this server. Reference #18.92623017.1791939047.af30464 https://errors.edgesuite.net/18.92623017.1791939047.af30464'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/roma-tomato-(plum-tomato)-2-count\" on this server. Reference #18.b4f50f17.1792000005.17efc8f1 https://errors.edgesuite.net/18.b4f50f17.1792000005.17efc8f1'"
     },
     {
       "product": "Roma Tomatoes",
@@ -66,14 +66,14 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/white-onion-1-count\" on this server. Reference #18.96623017.1791939102.6752882 https://errors.edgesuite.net/18.96623017.1791939102.6752882'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/white-onion-1-count\" on this server. Reference #18.b4f50f17.1792000059.17f3a875 https://errors.edgesuite.net/18.b4f50f17.1792000059.17f3a875'"
     },
     {
       "product": "Sweet Onions, 3 lb Bag",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/onions-sweet-1%252E36-kg\" on this server. Reference #18.96623017.1791939124.675a9bb https://errors.edgesuite.net/18.96623017.1791939124.675a9bb'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/onions-sweet-1%252E36-kg\" on this server. Reference #18.b3f50f17.1792000081.1c077219 https://errors.edgesuite.net/18.b3f50f17.1792000081.1c077219'"
     },
     {
       "product": "Sweet Onions, 3 lb Bag",
@@ -87,7 +87,7 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/yellow-potatoes-local-(10-lb-bag)-4%252E54-kg\" on this server. Reference #18.92623017.1791939145.af51c54 https://errors.edgesuite.net/18.92623017.1791939145.af51c54'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/yellow-potatoes-local-(10-lb-bag)-4%252E54-kg\" on this server. Reference #18.a4f50f17.1792000103.137520de https://errors.edgesuite.net/18.a4f50f17.1792000103.137520de'"
     },
     {
       "product": "Yellow Potatoes 10Lbs",
@@ -122,7 +122,7 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/hass-avocados-5-count-(ripe-in-3-5-days)\" on this server. Reference #18.92623017.1791939238.af70776 https://errors.edgesuite.net/18.92623017.1791939238.af70776'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/hass-avocados-5-count-(ripe-in-3-5-days)\" on this server. Reference #18.b4f50f17.1792000194.17fd281e https://errors.edgesuite.net/18.b4f50f17.1792000194.17fd281e'"
     },
     {
       "product": "Finish Quantum Ultimate+ Dishwasher Detergent, 96 Tablets",
@@ -150,14 +150,14 @@
       "store": "freshco",
       "brand": "Compliments",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-unsalted-454-g\" on this server. Reference #18.92623017.1791939387.af9f6ab https://errors.edgesuite.net/18.92623017.1791939387.af9f6ab'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-unsalted-454-g\" on this server. Reference #18.b4f50f17.1792000340.18082569 https://errors.edgesuite.net/18.b4f50f17.1792000340.18082569'"
     },
     {
       "product": "Salted Butter",
       "store": "freshco",
       "brand": "Compliments",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-salted-454-g\" on this server. Reference #18.96623017.1791939397.67bd21f https://errors.edgesuite.net/18.96623017.1791939397.67bd21f'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/compliments-butter-stick-salted-454-g\" on this server. Reference #18.a8f50f17.1792000350.e0b8220 https://errors.edgesuite.net/18.a8f50f17.1792000350.e0b8220'"
     },
     {
       "product": "Salted Butter",
@@ -167,6 +167,13 @@
       "detail": "title='Verify Your Identity' body='We like real shoppers, not robots! Please press and hold the button below to verify yourself so we can keep spam bots off of Walmart.ca.'"
     },
     {
+      "product": "Salted Butter",
+      "store": "walmart",
+      "brand": "Gay Lea",
+      "method": "blocked_by_bot_protection",
+      "detail": "title='Verify Your Identity' body='We like real shoppers, not robots! Please press and hold the button below to verify yourself so we can keep spam bots off of Walmart.ca.'"
+    },
+    {
       "product": "Mint",
       "store": "walmart",
       "brand": "",
@@ -175,17 +182,10 @@
     },
     {
       "product": "Mint",
-      "store": "superstore",
-      "brand": "",
-      "method": "rendered_no_price_found",
-      "detail": "title='Site Under Maintenance - PC Express' body=\"ENGLISH We're currently experiencing a technical issue with our website that our team is working to resolve. You can still order your groceries through the PC Express app or our trusted partners DoorDash and Instacart. We apologize for the inconvenie"
-    },
-    {
-      "product": "Mint",
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/mint-1-bunch\" on this server. Reference #18.92623017.1791939516.afc7dfc https://errors.edgesuite.net/18.92623017.1791939516.afc7dfc'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/mint-1-bunch\" on this server. Reference #18.a4f50f17.1792000451.1389b081 https://errors.edgesuite.net/18.a4f50f17.1792000451.1389b081'"
     },
     {
       "product": "Ginger",
@@ -199,7 +199,7 @@
       "store": "freshco",
       "brand": "",
       "method": "rendered_no_price_found",
-      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/ginger-root\" on this server. Reference #18.92623017.1791939549.afd2720 https://errors.edgesuite.net/18.92623017.1791939549.afd2720'"
+      "detail": "title='Access Denied' body='Access Denied You don\\'t have permission to access \"http://www.freshco.com/products/ginger-root\" on this server. Reference #18.b4f50f17.1792000483.1812aa50 https://errors.edgesuite.net/18.b4f50f17.1792000483.1812aa50'"
     }
   ],
   "duplicate_price_warnings": [
