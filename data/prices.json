@@ -33,7 +33,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/cilantro/p/20091825001_EA?source=nspt&search-bar=Cilantro&storeId=1542",
         "price": 1.25,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:51:37.272896+00:00",
+        "last_updated": "2026-11-10T20:11:53.457111+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -48,7 +48,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:51:37.272896+00:00"
+      "last_updated": "2026-11-10T20:11:53.457111+00:00"
     },
     "trend": null
   },
@@ -76,7 +76,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/roma-tomatoes/p/20143381001_KG?source=nspt&search-bar=Roma+Tomatoes&storeId=1542",
         "price": 8.8,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:51:57.586863+00:00",
+        "last_updated": "2026-11-10T20:12:13.898508+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -101,7 +101,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:51:57.586863+00:00"
+      "last_updated": "2026-11-10T20:12:13.898508+00:00"
     },
     "trend": null
   },
@@ -129,7 +129,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/white-onion/p/20003839001_KG?source=nspt&search-bar=White+Onion&storeId=1542",
         "price": 6.81,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:52:28.046681+00:00",
+        "last_updated": "2026-11-10T20:12:46.080126+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -154,7 +154,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:52:28.046681+00:00"
+      "last_updated": "2026-11-10T20:12:46.080126+00:00"
     },
     "trend": null
   },
@@ -172,7 +172,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/sweet-onions-3-lb-bag/p/20155979_EA?source=nspt&search-bar=Sweet+Onion&storeId=1542",
         "price": 6.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:52:48.406204+00:00",
+        "last_updated": "2026-11-10T20:13:06.462581+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -207,7 +207,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:52:48.406204+00:00"
+      "last_updated": "2026-11-10T20:13:06.462581+00:00"
     },
     "trend": null
   },
@@ -235,7 +235,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/yellow-potato-10-lb-bag/p/20601017001_EA?source=nspt&search-bar=Yellow+Potatoes&storeId=1542",
         "price": 3.0,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:53:29.264955+00:00",
+        "last_updated": "2026-11-10T20:13:49.544515+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -288,7 +288,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/3-25-dahi-yogurt/p/21718724_EA?source=nspt&search-bar=Suraj+Yogurt&storeId=1542",
         "price": 6.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:53:59.662820+00:00",
+        "last_updated": "2026-11-10T20:14:22.634534+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -303,7 +303,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:53:59.662820+00:00"
+      "last_updated": "2026-11-10T20:14:22.634534+00:00"
     },
     "trend": "same"
   },
@@ -321,7 +321,7 @@
         "url": "https://www.costco.ca/p/-/bounty-plus-paper-towel-12-x-91-sheets/4000339232?langId=-24",
         "price": 39.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:54:02.051603+00:00",
+        "last_updated": "2026-11-10T20:14:25.101801+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -336,7 +336,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:54:02.051603+00:00"
+      "last_updated": "2026-11-10T20:14:25.101801+00:00"
     },
     "trend": "same"
   },
@@ -352,9 +352,9 @@
         "store": "costco",
         "brand": "",
         "url": "https://www.costco.ca/p/-/kirkland-signature-2-ply-bath-tissue-30-pack/4000111232?langId=-24",
-        "price": 32.99,
+        "price": 33.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:54:04.163952+00:00",
+        "last_updated": "2026-11-10T20:14:27.407894+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -363,15 +363,15 @@
     "cheapest": {
       "store": "costco",
       "brand": "",
-      "price": 32.99,
+      "price": 33.99,
       "currency": "CAD",
       "url": "https://www.costco.ca/p/-/kirkland-signature-2-ply-bath-tissue-30-pack/4000111232?langId=-24",
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:54:04.163952+00:00"
+      "last_updated": "2026-11-10T20:14:27.407894+00:00"
     },
-    "trend": "same"
+    "trend": "up"
   },
   "avocados-5-6ct": {
     "name": "Avocados 5/6 Count",
@@ -408,7 +408,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/avocado-bag/p/21644936001_EA?source=nspt&search-bar=Avacados&storeId=1542",
         "price": 4.0,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:54:35.477605+00:00",
+        "last_updated": "2026-11-10T20:14:59.281719+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -451,7 +451,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/plain-paratha/p/20990535001_EA?source=nspt&search-bar=Paratha&storeId=1542",
         "price": 1.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:54:55.709461+00:00",
+        "last_updated": "2026-11-10T20:15:19.675543+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -466,7 +466,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:54:55.709461+00:00"
+      "last_updated": "2026-11-10T20:15:19.675543+00:00"
     },
     "trend": "same"
   },
@@ -495,7 +495,7 @@
         "url": "https://www.costco.ca/p/-/finish-quantum-ultimate-dishwasher-detergent-96-tablets/4000224829?langId=-24",
         "price": 28.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:55:08.809982+00:00",
+        "last_updated": "2026-11-10T20:15:32.594998+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -510,7 +510,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:55:08.809982+00:00"
+      "last_updated": "2026-11-10T20:15:32.594998+00:00"
     },
     "trend": "same"
   },
@@ -528,7 +528,7 @@
         "url": "https://www.costco.ca/p/-/tide-ultra-concentrated-liquid-laundry-detergent-original-scent-146-loads/4000254430?langId=-24",
         "price": 34.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:55:11.076646+00:00",
+        "last_updated": "2026-11-10T20:15:34.946680+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -543,7 +543,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:55:11.076646+00:00"
+      "last_updated": "2026-11-10T20:15:34.946680+00:00"
     },
     "trend": "same"
   },
@@ -561,7 +561,7 @@
         "url": "https://www.costco.ca/p/-/dove-daily-moisture-shampoo-118-l/4000344866?langId=-24",
         "price": 14.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:55:13.360186+00:00",
+        "last_updated": "2026-11-10T20:15:37.392086+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -576,7 +576,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:55:13.360186+00:00"
+      "last_updated": "2026-11-10T20:15:37.392086+00:00"
     },
     "trend": "same"
   },
@@ -594,7 +594,7 @@
         "url": "https://www.costco.ca/p/-/dove-deep-moisture-body-wash-2-x-104-l/4000377963?langId=-24",
         "price": 14.97,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:55:15.630787+00:00",
+        "last_updated": "2026-11-10T20:15:39.803642+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -609,7 +609,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:55:15.630787+00:00"
+      "last_updated": "2026-11-10T20:15:39.803642+00:00"
     },
     "trend": "same"
   },
@@ -627,7 +627,7 @@
         "url": "https://www.costco.ca/p/-/dove-daily-moisture-conditioner-118-l/4000344903?langId=-24",
         "price": 14.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:55:18.139607+00:00",
+        "last_updated": "2026-11-10T20:15:42.151579+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -642,7 +642,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:55:18.139607+00:00"
+      "last_updated": "2026-11-10T20:15:42.151579+00:00"
     },
     "trend": "same"
   },
@@ -660,7 +660,7 @@
         "url": "https://www.costco.ca/p/-/colgate-active-prevention-plus-fresh-whitening-toothpaste-5-x-170-ml/4000287847?langId=-24",
         "price": 18.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:55:20.458496+00:00",
+        "last_updated": "2026-11-10T20:15:44.477252+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -675,7 +675,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:55:20.458496+00:00"
+      "last_updated": "2026-11-10T20:15:44.477252+00:00"
     },
     "trend": "same"
   },
@@ -713,7 +713,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/creamery-butter-unsalted/p/21125358_EA?source=nspt&search-bar=Unsalted+Butter+Sticks&storeId=1542",
         "price": 7.0,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:56:05.770204+00:00",
+        "last_updated": "2026-11-10T20:16:33.474798+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -724,7 +724,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20316543002_EA?source=nspt&search-bar=Unsalted+Butter+Sticks&storeId=1542",
         "price": 5.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:56:15.643022+00:00",
+        "last_updated": "2026-11-10T20:16:43.457313+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -735,7 +735,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/country-churned-unsalted-butter/p/20313456001_EA?source=nspt",
         "price": 7.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:56:26.038413+00:00",
+        "last_updated": "2026-11-10T20:16:53.241195+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -746,7 +746,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/cultured-unsalted-butter/p/20056675_EA?source=nspt",
         "price": 9.49,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:56:39.841926+00:00",
+        "last_updated": "2026-11-10T20:17:03.028014+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -757,7 +757,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/unsalted-butter/p/20559466_EA?source=nspt",
         "price": 8.49,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:56:49.927641+00:00",
+        "last_updated": "2026-11-10T20:17:13.002673+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -768,7 +768,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/organic-buttery-sticks/p/20984009_EA?source=nspt",
         "price": 7.29,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:56:59.458810+00:00",
+        "last_updated": "2026-11-10T20:17:22.856539+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -821,7 +821,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/salted-butter/p/20325029_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542",
         "price": 5.99,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:57:30.178208+00:00",
+        "last_updated": "2026-11-10T20:17:54.557512+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -852,7 +852,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/salted-butter/p/20559408_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542",
         "price": 8.49,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:58:00.714840+00:00",
+        "last_updated": "2026-11-10T20:18:27.880986+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -863,7 +863,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/creamery-butter-salted/p/21125357_EA?source=nspt&search-bar=salted+Butter+Sticks&storeId=1542",
         "price": 7.0,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:58:24.899189+00:00",
+        "last_updated": "2026-11-10T20:18:52.591533+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -906,7 +906,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/mint-fresh/p/20139326001_EA?source=nspt&search-bar=Mint&storeId=1542",
         "price": 1.89,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:58:45.041985+00:00",
+        "last_updated": "2026-11-10T20:19:14.946682+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -931,7 +931,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:58:45.041985+00:00"
+      "last_updated": "2026-11-10T20:19:14.946682+00:00"
     },
     "trend": null
   },
@@ -959,7 +959,7 @@
         "url": "https://www.realcanadiansuperstore.ca/en/ginger/p/20179038001_KG?source=nspt&search-bar=Ginger&storeId=1542",
         "price": 5.51,
         "currency": "CAD",
-        "last_updated": "2026-11-09T22:59:16.082369+00:00",
+        "last_updated": "2026-11-10T20:19:46.637013+00:00",
         "stale": false,
         "manual": false,
         "manual_source": ""
@@ -984,7 +984,7 @@
       "stale": false,
       "manual": false,
       "manual_source": "",
-      "last_updated": "2026-11-09T22:59:16.082369+00:00"
+      "last_updated": "2026-11-10T20:19:46.637013+00:00"
     },
     "trend": null
   }
